@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="KVM 介绍 KVM是以色列初创公司Qumranet开发，2008年9月RedHat公司收购了Qumranet  KVM是Linux内核的一个模块，它把Linux内核变成了一个Hypervisor KVM是完全开源的，RedHat基于KVM的虚拟化解决方案叫做RHEV KVM在Linux操作系统里面以进程的形式出现，由标准的Linux调度程序进行调度，这使得KVM能够使用Linux内核的已有功能，">
+<meta name="description" content="KVM 介绍 KVM是以色列初创公司Qumranet开发，2008年9月RedHat公司收购了Qumranet">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KVM部署篇">
 <meta property="og:url" content="http://yunwei.github.io/2018/12/18/KVM部署篇/index.html">
 <meta property="og:site_name" content="青云">
-<meta property="og:description" content="KVM 介绍 KVM是以色列初创公司Qumranet开发，2008年9月RedHat公司收购了Qumranet  KVM是Linux内核的一个模块，它把Linux内核变成了一个Hypervisor KVM是完全开源的，RedHat基于KVM的虚拟化解决方案叫做RHEV KVM在Linux操作系统里面以进程的形式出现，由标准的Linux调度程序进行调度，这使得KVM能够使用Linux内核的已有功能，">
+<meta property="og:description" content="KVM 介绍 KVM是以色列初创公司Qumranet开发，2008年9月RedHat公司收购了Qumranet">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-18T04:21:47.428Z">
+<meta property="og:updated_time" content="2018-12-18T04:38:01.396Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KVM部署篇">
-<meta name="twitter:description" content="KVM 介绍 KVM是以色列初创公司Qumranet开发，2008年9月RedHat公司收购了Qumranet  KVM是Linux内核的一个模块，它把Linux内核变成了一个Hypervisor KVM是完全开源的，RedHat基于KVM的虚拟化解决方案叫做RHEV KVM在Linux操作系统里面以进程的形式出现，由标准的Linux调度程序进行调度，这使得KVM能够使用Linux内核的已有功能，">
+<meta name="twitter:description" content="KVM 介绍 KVM是以色列初创公司Qumranet开发，2008年9月RedHat公司收购了Qumranet">
 
 
 
@@ -211,7 +211,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/虚拟化" rel="section">
+          <a href="/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
             
@@ -363,8 +363,8 @@
       
         <p>KVM 介绍</p>
 <pre><code>KVM是以色列初创公司Qumranet开发，2008年9月RedHat公司收购了Qumranet
-
-KVM是Linux内核的一个模块，它把Linux内核变成了一个Hypervisor
+</code></pre><a id="more"></a>
+<pre><code>KVM是Linux内核的一个模块，它把Linux内核变成了一个Hypervisor
 KVM是完全开源的，RedHat基于KVM的虚拟化解决方案叫做RHEV
 KVM在Linux操作系统里面以进程的形式出现，由标准的Linux调度程序进行调度，这使得KVM能够使用Linux内核的已有功能，只有一个KVM内核模块还不能实现虚拟化的全部功能，就好比操作系统只有内核还不能成为一个完整的操作系统一样
 QEMU是一个开源的虚拟化软件，纯软件，可以虚拟化所以的硬件，性能不强
@@ -372,8 +372,7 @@ KVM基于QEMU开发了一个能够运行在用户空间的工具QEMU-KVM
 磁盘、网络设备等都是通过QEMU-KVM这个工具模拟出来的
 KVM和QEMU-KVM通信是通过/dev/kvm实现的
 libvirt是用来管理KVM虚拟机的API，其命令为virsh
-</code></pre><a id="more"></a>
-<p>CentOS 7.3 安装KVM</p>
+</code></pre><p>CentOS 7.3 安装KVM</p>
 <pre><code>关闭 iptables 或者 firewalld
 关闭 selinux
 格式化新磁盘，挂载到 /kvm_data

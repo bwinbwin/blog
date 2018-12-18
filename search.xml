@@ -4,6 +4,9 @@
     <title><![CDATA[Centos7.4 修改MySQL5.7 root 密码]]></title>
     <url>%2F2018%2F12%2F18%2Fcentos-1%2F</url>
     <content type="text"><![CDATA[Centos7.4 修改MySQL5.7 root 密码1.vim /etc/my.cnf 2.在[mysqld]中添加 skip-grant-tables 例如： [mysqld]skip-grant-tablesdatadir=/var/lib/mysqlsocket=/var/lib/mysql/mysql.sock 3.重启mysql service mysql restart 4.用户无密码登录 mysql -uroot -p (直接点击回车，密码为空) 5.选择数据库 use mysql; 6.修改root密码 update mysql.user set authentication_string=password(‘新密码’) where user=’用户’; 7.执行 flush privileges; 8.退出 mysql quit 9.编辑 /etc/my.cnf 删除 skip-grant-tables 保存退出 10.重启mysql service mysql restart]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
       <tags>
         <tag>mysql</tag>
       </tags>

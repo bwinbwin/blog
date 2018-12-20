@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[rocketmq-console编译安装]]></title>
+    <url>%2F2018%2F12%2F20%2Frocketmq-console%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%2F</url>
+    <content type="text"><![CDATA[rocketmq-console编译安装 git clone https://github.com/apache/rocketmq-externals.git vim rocketmq-console/src/main/resources/application.properties修改者两个地方rocketmq.config.namesrvAddr=192.168.56.11:9876;192.168.56.12:9876Irocketmq.config.dataPath=/home/hadmin/data/rocketmq更改内容后 cd rocketmq-console/mvn clean package -Dmaven.test.skip=true完成后cd target/找到rocketmq-console-ng-1.0.0.jar]]></content>
+      <categories>
+        <category>MQ</category>
+      </categories>
+      <tags>
+        <tag>MQ</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Nginx在CDN加速之后，获取用户真实IP做并发访问限制的方法]]></title>
     <url>%2F2018%2F12%2F19%2Fnginx%2F</url>
     <content type="text"><![CDATA[Nginx 有2个模块用于控制访问“数量”和“速度”，简单的说，控制你最多同时有 多少个访问，并且控制你每秒钟最多访问多少次， 你的同时并发访问不能太多，也不能太快，不然就“杀无赦”。HttpLimitZoneModule 限制同时并发访问的数量 HttpLimitReqModule 限制访问数据，每秒内最多几个请求 普通配置就是针对【用户浏览器】→【网站服务器】这种常规模式的nginx配置（没有任何CDN服务）。对单IP做访问限制，绝大多数教程都是这样写的： 用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址最多有 50 个并发连接 你想开 几千个连接 刷死我？ 超过 50 个连接，直接返回 503 错误给你，根本不处理你的请求了 limit_conn_zone $binary_remote_addr zone=TotalConnLimitZone:10m ; limit_conn TotalConnLimitZone 50; limit_conn_log_level notice; 用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址每秒处理 10 个请求 你想用程序每秒几百次的刷我，没戏，再快了就不处理了，直接返回 503 错误给你 limit_req_zone $binary_remote_addr zone=ConnLimitZone:10m rate=10r/s; limit_req_log_level notice; ##具体服务器配置 server { listen 80; location ~ \.php$ { 最多 5 个排队， 由于每秒处理 10 个请求 + 5个排队，你一秒最多发送 15 个请求过来，再多就直接返回 503 错误给你了 limit_req zone=ConnLimitZone burst=5 nodelay; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; include fastcgi_params; } } 用户浏览器 → CDN节点 → 网站源服务器 甚至是更复杂的模式： 用户浏览器 → CDN节点（CDN入口、CC\DDoS攻击流量清洗等） → 阿里云盾 → 源服务器 这里取得原始用户的IP地址 map $http_x_forwarded_for $clientRealIp { "" $remote_addr; ~^(?P[0-9\.]+),?.*$ $firstAddr; } 针对原始用户 IP 地址做限制 limit_conn_zone $clientRealIp zone=TotalConnLimitZone:20m ; limit_conn TotalConnLimitZone 50; limit_conn_log_level notice; 针对原始用户 IP 地址做限制 limit_req_zone $clientRealIp zone=ConnLimitZone:20m rate=10r/s; #limit_req zone=ConnLimitZone burst=10 nodelay; #如果开启此条规则，burst=10的限制将会在nginx全局生效 limit_req_log_level notice; 具体Server：如下在监听php部分新增限制规则即可 server { listen 80; location ~ \.php$ { ## 最多 5 个排队， 由于每秒处理 10 个请求 + 5个排队，你一秒最多发送 15 个请求过来，再多就直接返回 503 错误给你了 limit_req zone=ConnLimitZone burst=5 nodelay; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; include fastcgi_params; } }]]></content>

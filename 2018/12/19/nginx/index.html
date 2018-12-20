@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="yunwei&#39;s blog">
 <meta property="og:description" content="Nginx 有2个模块用于控制访问“数量”和“速度”，简单的说，控制你最多同时有 多少个访问，并且控制你每秒钟最多访问多少次， 你的同时并发访问不能太多，也不能太快，不然就“杀无赦”。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-19T13:45:43.513Z">
+<meta property="og:updated_time" content="2018-12-20T02:23:22.591Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx在CDN加速之后，获取用户真实IP做并发访问限制的方法">
 <meta name="twitter:description" content="Nginx 有2个模块用于控制访问“数量”和“速度”，简单的说，控制你最多同时有 多少个访问，并且控制你每秒钟最多访问多少次， 你的同时并发访问不能太多，也不能太快，不然就“杀无赦”。">
@@ -387,35 +387,81 @@
         <p>Nginx 有2个模块用于控制访问“数量”和“速度”，简单的说，控制你最多同时有 多少个访问，并且控制你每秒钟最多访问多少次， 你的同时并发访问不能太多，也不能太快，不然就“杀无赦”。<br><a id="more"></a><br>HttpLimitZoneModule    限制同时并发访问的数量</p>
 <p>HttpLimitReqModule      限制访问数据，每秒内最多几个请求</p>
 <p>普通配置就是针对【用户浏览器】→【网站服务器】这种常规模式的nginx配置（没有任何CDN服务）。对单IP做访问限制，绝大多数教程都是这样写的：</p>
-<h1 id="用户的-IP-地址-binary-remote-addr-作为-Key，每个-IP-地址最多有-50-个并发连接"><a href="#用户的-IP-地址-binary-remote-addr-作为-Key，每个-IP-地址最多有-50-个并发连接" class="headerlink" title="用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址最多有 50 个并发连接"></a>用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址最多有 50 个并发连接</h1><h2 id="你想开-几千个连接-刷死我？-超过-50-个连接，直接返回-503-错误给你，根本不处理你的请求了"><a href="#你想开-几千个连接-刷死我？-超过-50-个连接，直接返回-503-错误给你，根本不处理你的请求了" class="headerlink" title="你想开 几千个连接 刷死我？ 超过 50 个连接，直接返回 503 错误给你，根本不处理你的请求了"></a>你想开 几千个连接 刷死我？ 超过 50 个连接，直接返回 503 错误给你，根本不处理你的请求了</h2><p>limit_conn_zone $binary_remote_addr zone=TotalConnLimitZone:10m ;</p>
-<p>limit_conn  TotalConnLimitZone  50;</p>
-<p>limit_conn_log_level notice;</p>
-<h2 id="用户的-IP-地址-binary-remote-addr-作为-Key，每个-IP-地址每秒处理-10-个请求"><a href="#用户的-IP-地址-binary-remote-addr-作为-Key，每个-IP-地址每秒处理-10-个请求" class="headerlink" title="用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址每秒处理 10 个请求"></a>用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址每秒处理 10 个请求</h2><h2 id="你想用程序每秒几百次的刷我，没戏，再快了就不处理了，直接返回-503-错误给你"><a href="#你想用程序每秒几百次的刷我，没戏，再快了就不处理了，直接返回-503-错误给你" class="headerlink" title="你想用程序每秒几百次的刷我，没戏，再快了就不处理了，直接返回 503 错误给你"></a>你想用程序每秒几百次的刷我，没戏，再快了就不处理了，直接返回 503 错误给你</h2><p>limit_req_zone $binary_remote_addr zone=ConnLimitZone:10m  rate=10r/s;</p>
-<p>limit_req_log_level notice;</p>
-<h2 id="具体服务器配置"><a href="#具体服务器配置" class="headerlink" title="具体服务器配置"></a>具体服务器配置</h2><p>server {</p>
-<p>listen   80;</p>
-<p>location ~ .php$ {</p>
-<h2 id="最多-5-个排队，-由于每秒处理-10-个请求-5个排队，你一秒最多发送-15-个请求过来，再多就直接返回-503-错误给你了"><a href="#最多-5-个排队，-由于每秒处理-10-个请求-5个排队，你一秒最多发送-15-个请求过来，再多就直接返回-503-错误给你了" class="headerlink" title="最多 5 个排队， 由于每秒处理 10 个请求 + 5个排队，你一秒最多发送 15 个请求过来，再多就直接返回 503 错误给你了"></a>最多 5 个排队， 由于每秒处理 10 个请求 + 5个排队，你一秒最多发送 15 个请求过来，再多就直接返回 503 错误给你了</h2><p>limit_req zone=ConnLimitZone burst=5 nodelay;</p>
-<p>fastcgi_pass   127.0.0.1:9000;</p>
-<p>fastcgi_index  index.php;</p>
-<p>include fastcgi_params;</p>
-<p>}</p>
-<p>}</p>
-<p>用户浏览器 → CDN节点 → 网站源服务器<br>甚至是更复杂的模式：<br>用户浏览器 → CDN节点（CDN入口、CC\DDoS攻击流量清洗等） → 阿里云盾 → 源服务器</p>
-<h2 id="这里取得原始用户的IP地址"><a href="#这里取得原始用户的IP地址" class="headerlink" title="这里取得原始用户的IP地址"></a>这里取得原始用户的IP地址</h2><p>map $http_x_forwarded_for  $clientRealIp {<br>    “”    $remote_addr;<br>    ~^(?P<firstaddr>[0-9.]+),?.*$    $firstAddr;<br>}</firstaddr></p>
-<h2 id="针对原始用户-IP-地址做限制"><a href="#针对原始用户-IP-地址做限制" class="headerlink" title="针对原始用户 IP 地址做限制"></a>针对原始用户 IP 地址做限制</h2><p>limit_conn_zone $clientRealIp zone=TotalConnLimitZone:20m ;<br>limit_conn  TotalConnLimitZone  50;<br>limit_conn_log_level notice;</p>
-<h2 id="针对原始用户-IP-地址做限制-1"><a href="#针对原始用户-IP-地址做限制-1" class="headerlink" title="针对原始用户 IP 地址做限制"></a>针对原始用户 IP 地址做限制</h2><p>limit_req_zone $clientRealIp zone=ConnLimitZone:20m  rate=10r/s;</p>
-<p>#limit_req zone=ConnLimitZone burst=10 nodelay; #如果开启此条规则，burst=10的限制将会在nginx全局生效<br>limit_req_log_level notice;</p>
-<h2 id="具体Server：如下在监听php部分新增限制规则即可"><a href="#具体Server：如下在监听php部分新增限制规则即可" class="headerlink" title="具体Server：如下在监听php部分新增限制规则即可"></a>具体Server：如下在监听php部分新增限制规则即可</h2><p>server {<br>    listen   80;<br>    location ~ .php$ {</p>
-<pre><code>            ## 最多 5 个排队， 由于每秒处理 10 个请求 + 5个排队，你一秒最多发送 15 个请求过来，再多就直接返回 503 错误给你了
-    limit_req zone=ConnLimitZone burst=5 nodelay;
+<p>用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址最多有 50 个并发连接</p>
+<p>你想开 几千个连接 刷死我？ 超过 50 个连接，直接返回 503 错误给你，根本不处理你的请求了</p>
+<pre><code>
+limit_conn_zone $binary_remote_addr zone=TotalConnLimitZone:10m ;
 
-    fastcgi_pass   127.0.0.1:9000;
-    fastcgi_index  index.php;
-    include    fastcgi_params;
-}    
-</code></pre><p>}</p>
+limit_conn  TotalConnLimitZone  50;
 
+limit_conn_log_level notice;
+</code></pre><code>
+用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址每秒处理 10 个请求
+
+你想用程序每秒几百次的刷我，没戏，再快了就不处理了，直接返回 503 错误给你
+<pre><code>
+limit_req_zone $binary_remote_addr zone=ConnLimitZone:10m  rate=10r/s;
+
+limit_req_log_level notice;
+</code></pre><code>
+##具体服务器配置
+<pre><code>
+server {
+
+listen   80;
+
+location ~ \.php$ {
+
+最多 5 个排队， 由于每秒处理 10 个请求 + 5个排队，你一秒最多发送 15 个请求过来，再多就直接返回 503 错误给你了
+
+limit_req zone=ConnLimitZone burst=5 nodelay;
+
+fastcgi_pass   127.0.0.1:9000;
+
+fastcgi_index  index.php;
+
+include fastcgi_params;
+
+}
+
+}
+</code></pre><code>
+用户浏览器 → CDN节点 → 网站源服务器
+甚至是更复杂的模式：
+用户浏览器 → CDN节点（CDN入口、CC\DDoS攻击流量清洗等） → 阿里云盾 → 源服务器
+
+这里取得原始用户的IP地址
+<pre><code>
+map $http_x_forwarded_for  $clientRealIp {
+    ""    $remote_addr;
+    ~^(?P<firstaddr>[0-9\.]+),?.*$    $firstAddr;
+}
+</firstaddr></code></pre><code> 
+针对原始用户 IP 地址做限制
+<pre><code>
+limit_conn_zone $clientRealIp zone=TotalConnLimitZone:20m ;
+limit_conn  TotalConnLimitZone  50;
+limit_conn_log_level notice;
+
+针对原始用户 IP 地址做限制
+limit_req_zone $clientRealIp zone=ConnLimitZone:20m  rate=10r/s;
+#limit_req zone=ConnLimitZone burst=10 nodelay; #如果开启此条规则，burst=10的限制将会在nginx全局生效
+limit_req_log_level notice;
+</code></pre><code>
+具体Server：如下在监听php部分新增限制规则即可
+<pre><code>
+server {
+    listen   80;
+    location ~ \.php$ {
+                ## 最多 5 个排队， 由于每秒处理 10 个请求 + 5个排队，你一秒最多发送 15 个请求过来，再多就直接返回 503 错误给你了
+        limit_req zone=ConnLimitZone burst=5 nodelay;
+
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        include    fastcgi_params;
+    }    
+
+} </code></pre></code></code></code></code></code>
       
     </div>
     
@@ -505,17 +551,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -575,22 +612,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用户的-IP-地址-binary-remote-addr-作为-Key，每个-IP-地址最多有-50-个并发连接"><span class="nav-number">1.</span> <span class="nav-text">用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址最多有 50 个并发连接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#你想开-几千个连接-刷死我？-超过-50-个连接，直接返回-503-错误给你，根本不处理你的请求了"><span class="nav-number">1.1.</span> <span class="nav-text">你想开 几千个连接 刷死我？ 超过 50 个连接，直接返回 503 错误给你，根本不处理你的请求了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户的-IP-地址-binary-remote-addr-作为-Key，每个-IP-地址每秒处理-10-个请求"><span class="nav-number">1.2.</span> <span class="nav-text">用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址每秒处理 10 个请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#你想用程序每秒几百次的刷我，没戏，再快了就不处理了，直接返回-503-错误给你"><span class="nav-number">1.3.</span> <span class="nav-text">你想用程序每秒几百次的刷我，没戏，再快了就不处理了，直接返回 503 错误给你</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体服务器配置"><span class="nav-number">1.4.</span> <span class="nav-text">具体服务器配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最多-5-个排队，-由于每秒处理-10-个请求-5个排队，你一秒最多发送-15-个请求过来，再多就直接返回-503-错误给你了"><span class="nav-number">1.5.</span> <span class="nav-text">最多 5 个排队， 由于每秒处理 10 个请求 + 5个排队，你一秒最多发送 15 个请求过来，再多就直接返回 503 错误给你了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这里取得原始用户的IP地址"><span class="nav-number">1.6.</span> <span class="nav-text">这里取得原始用户的IP地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#针对原始用户-IP-地址做限制"><span class="nav-number">1.7.</span> <span class="nav-text">针对原始用户 IP 地址做限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#针对原始用户-IP-地址做限制-1"><span class="nav-number">1.8.</span> <span class="nav-text">针对原始用户 IP 地址做限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体Server：如下在监听php部分新增限制规则即可"><span class="nav-number">1.9.</span> <span class="nav-text">具体Server：如下在监听php部分新增限制规则即可</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

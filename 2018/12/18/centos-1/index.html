@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="yunwei&#39;s blog">
 <meta property="og:description" content="Centos7.4 修改MySQL5.7 root 密码">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-18T08:09:31.636Z">
+<meta property="og:updated_time" content="2018-12-20T05:45:00.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos7.4 修改MySQL5.7 root 密码">
 <meta name="twitter:description" content="Centos7.4 修改MySQL5.7 root 密码">
@@ -388,16 +388,14 @@
 <p>2.在[mysqld]中添加</p>
 <p>skip-grant-tables</p>
 <p>例如：</p>
-<p>[mysqld]<br>skip-grant-tables<br>datadir=/var/lib/mysql<br>socket=/var/lib/mysql/mysql.sock</p>
-<p>3.重启mysql</p>
+<p><pre><code><br>[mysqld]<br>skip-grant-tables<br>datadir=/var/lib/mysql<br>socket=/var/lib/mysql/mysql.sock<br></code></pre><code><br>3.重启mysql</code></p>
 <p>service mysql restart</p>
 <p>4.用户无密码登录</p>
 <p>mysql -uroot -p (直接点击回车，密码为空)</p>
 <p>5.选择数据库</p>
 <p>use mysql;</p>
 <p>6.修改root密码</p>
-<p>update mysql.user set authentication_string=password(‘新密码’) where user=’用户’;</p>
-<p>7.执行</p>
+<p><pre><code><br>update mysql.user set authentication_string=password(‘新密码’) where user=’用户’;<br></code></pre><code><br>7.执行</code></p>
 <p> flush privileges;</p>
 <p>8.退出 mysql</p>
 <p>quit</p>

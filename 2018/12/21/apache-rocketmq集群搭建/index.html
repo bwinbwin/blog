@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="MQ,">
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="yunwei&#39;s blog">
-<meta property="og:url" content="http://yunwei.github.io/tags/mysql/index.html">
+<meta name="description" content="apache-rocketmq集群搭建环境： centos7  jdk1.8.0_65  rocketmq-4.1.0IP1:10.167.10.81IP2:10.167.10.82">
+<meta name="keywords" content="MQ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="apache-rocketmq集群搭建">
+<meta property="og:url" content="http://yunwei.github.io/2018/12/21/apache-rocketmq集群搭建/index.html">
 <meta property="og:site_name" content="yunwei&#39;s blog">
+<meta property="og:description" content="apache-rocketmq集群搭建环境： centos7  jdk1.8.0_65  rocketmq-4.1.0IP1:10.167.10.81IP2:10.167.10.82">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-21T08:49:35.708Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yunwei&#39;s blog">
+<meta name="twitter:title" content="apache-rocketmq集群搭建">
+<meta name="twitter:description" content="apache-rocketmq集群搭建环境： centos7  jdk1.8.0_65  rocketmq-4.1.0IP1:10.167.10.81IP2:10.167.10.82">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yunwei.github.io/tags/mysql/">
+  <link rel="canonical" href="http://yunwei.github.io/2018/12/21/apache-rocketmq集群搭建/">
 
 
 
 
 
-  <title>标签: mysql | yunwei's blog</title>
+  <title>apache-rocketmq集群搭建 | yunwei's blog</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -276,52 +281,183 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>mysql<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yunwei.github.io/2018/12/21/apache-rocketmq集群搭建/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="文章">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yunwei's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/12/18/centos-1/" itemprop="url">
-              
-                <span itemprop="name">Centos7.4 修改MySQL5.7 root 密码</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">apache-rocketmq集群搭建</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-18T15:59:00+08:00" content="2018-12-18">
-          12-18
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-21T15:02:29+08:00">
+                2018-12-21
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/MQ/" itemprop="url" rel="index">
+                    <span itemprop="name">MQ</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>apache-rocketmq集群搭建<br>环境：</p>
+<p><pre><code><br>centos7  jdk1.8.0_65  rocketmq-4.1.0<br>IP1:10.167.10.81<br>IP2:10.167.10.82<br></code></pre><code><br><a id="more"></a></code></p>
+<p>IP1机器配置<br>2m-2s-async/broker-a.properties配置</p>
+<p><pre><code><br>listenPort=10911<br>namesrvAddr=10.167.10.81:9876;10.167.10.82:9876<br>brokerIP1=10.167.10.81<br>autoCreateTopicEnable=false<br>autoCreateSubscriptionGroup=true<br>rejectTransactionMessage=false<br>fetchNamesrvAddrByAddressServer=false<br>storePathRootDir=/apps/apache-rocketmq/store-a<br>storePathCommitLog=/apps/apache-rocketmq/store-a/commitlog<br>storePathConsumeQueue=/apps/apache-rocketmq/store-a/consumequeue<br>storePathIndex=/apps/apache-rocketmq/store-a/index<br>storeCheckpoint=/apps/apache-rocketmq/store-a/checkpoint<br>abortFile=/apps/apache-rocketmq/store-a/abort<br>flushIntervalCommitLog=1000<br>flushCommitLogTimed=false<br>maxTransferBytesOnMessageInMemory=262144<br>maxTransferCountOnMessageInMemory=32<br>maxTransferBytesOnMessageInDisk=65536<br>maxTransferCountOnMessageInDisk=8<br>accessMessageInMemoryMaxRatio=40<br>messageIndexEnable=true<br>messageIndexSafe=false<br>haMasterAddress=<br>cleanFileForciblyEnable=false<br></code></pre><code> </code></p>
+<p>2m-2s-async/broker-b-s.properties配置</p>
+<p><pre><code><br>listenPort=10915<br>namesrvAddr=10.167.10.81:9876;10.167.10.82:9876<br>brokerIP1=10.167.10.81<br>autoCreateTopicEnable=false<br>autoCreateSubscriptionGroup=true<br>rejectTransactionMessage=false<br>fetchNamesrvAddrByAddressServer=false<br>storePathRootDir=/apps/apache-rocketmq/store-b<br>storePathCommitLog=/apps/apache-rocketmq/store-b/commitlog<br>storePathConsumeQueue=/apps/apache-rocketmq/store-b/consumequeue<br>storePathIndex=/apps/apache-rocketmq/store-b/index<br>storeCheckpoint=/apps/apache-rocketmq/store-b/checkpoint<br>abortFile=/apps/apache-rocketmq/store-b/abort<br>flushIntervalCommitLog=1000<br>flushCommitLogTimed=false<br>maxTransferBytesOnMessageInMemory=262144<br>maxTransferCountOnMessageInMemory=32<br>maxTransferBytesOnMessageInDisk=65536<br>maxTransferCountOnMessageInDisk=8<br>accessMessageInMemoryMaxRatio=40<br>messageIndexEnable=true<br>messageIndexSafe=false<br>haMasterAddress=<br>cleanFileForciblyEnable=false<br></code></pre><code> </code></p>
+<p>启动</p>
+<p><pre><code><br>cd /apps/apache-rocketmq/bin &amp;&amp; nohup sh mqnamesrv &amp;<br>cd /apps/apache-rocketmq/bin &amp;&amp; nohup sh mqbroker -c /apps/apache-rocketmq/conf/2m-2s-async/broker-a.properties &amp;<br>cd /apps/apache-rocketmq/bin &amp;&amp; nohup sh mqbroker -c /apps/apache-rocketmq/conf/2m-2s-async/broker-b-s.properties &amp;<br></code></pre><code> </code></p>
+<p>IP2配置<br>2m-2s-async/broker-a-s.properties</p>
+<p><pre><code><br>listenPort=10915<br>namesrvAddr=10.167.10.81:9876;10.167.10.82:9876<br>brokerIP1=10.167.10.82<br>autoCreateTopicEnable=false<br>autoCreateSubscriptionGroup=true<br>rejectTransactionMessage=false<br>fetchNamesrvAddrByAddressServer=false<br>storePathRootDir=/apps/apache-rocketmq/store-a<br>storePathCommitLog=/apps/apache-rocketmq/store-a/commitlog<br>storePathConsumeQueue=/apps/apache-rocketmq/store-a/consumequeue<br>storePathIndex=/apps/apache-rocketmq/store-a/index<br>storeCheckpoint=/apps/apache-rocketmq/store-a/checkpoint<br>abortFile=/apps/apache-rocketmq/store-a/abort<br>flushIntervalCommitLog=1000<br>flushCommitLogTimed=false<br>maxTransferBytesOnMessageInMemory=262144<br>maxTransferCountOnMessageInMemory=32<br>maxTransferBytesOnMessageInDisk=65536<br>maxTransferCountOnMessageInDisk=8<br>accessMessageInMemoryMaxRatio=40<br>messageIndexEnable=true<br>messageIndexSafe=false<br>haMasterAddress=<br>cleanFileForciblyEnable=false<br></code></pre><code> </code></p>
+<p>2m-2s-async/broker-b.properties</p>
+<p><pre><code><br>listenPort=10911<br>namesrvAddr=10.167.10.81:9876;10.167.10.82:9876<br>brokerIP1=10.167.10.82<br>autoCreateTopicEnable=false<br>autoCreateSubscriptionGroup=true<br>rejectTransactionMessage=false<br>fetchNamesrvAddrByAddressServer=false<br>storePathRootDir=/apps/apache-rocketmq/store-b<br>storePathCommitLog=/apps/apache-rocketmq/store-b/commitlog<br>storePathConsumeQueue=/apps/apache-rocketmq/store-b/consumequeue<br>storePathIndex=/apps/apache-rocketmq/store-b/index<br>storeCheckpoint=/apps/apache-rocketmq/store-b/checkpoint<br>abortFile=/apps/apache-rocketmq/store-b/abort<br>flushIntervalCommitLog=1000<br>flushCommitLogTimed=false<br>maxTransferBytesOnMessageInMemory=262144<br>maxTransferCountOnMessageInMemory=32<br>maxTransferBytesOnMessageInDisk=65536<br>maxTransferCountOnMessageInDisk=8<br>accessMessageInMemoryMaxRatio=40<br>messageIndexEnable=true<br>messageIndexSafe=false<br>haMasterAddress=<br>cleanFileForciblyEnable=false<br></code></pre><code> </code></p>
+<p>启动</p>
+<p><pre><code><br>cd /apps/apache-rocketmq/bin &amp;&amp; nohup sh mqnamesrv &amp;<br>cd /apps/apache-rocketmq/bin &amp;&amp; nohup sh mqbroker -c /apps/apache-rocketmq/conf/2m-2s-async/broker-a-s.properties &amp;<br>cd /apps/apache-rocketmq/bin &amp;&amp; nohup sh mqbroker -c /apps/apache-rocketmq/conf/2m-2s-async/broker-b.properties &amp;</code></pre></p>
+<p><pre><code> </code></pre></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MQ/" rel="tag"># MQ</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/20/rocketmq-console编译安装/" rel="next" title="rocketmq-console编译安装">
+                <i class="fa fa-chevron-left"></i> rocketmq-console编译安装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -329,6 +465,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -548,6 +688,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

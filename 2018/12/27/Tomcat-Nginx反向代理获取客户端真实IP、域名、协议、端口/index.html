@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="yunwei&#39;s blog">
 <meta property="og:description" content="nginx反向代理配置">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-27T03:10:55.266Z">
+<meta property="og:updated_time" content="2018-12-27T03:19:46.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tomcat + Nginx反向代理获取客户端真实IP、域名、协议、端口">
 <meta name="twitter:description" content="nginx反向代理配置">
@@ -363,8 +363,7 @@
       
         <p>nginx反向代理配置<br><a id="more"></a></p>
 <p><pre><code><br>proxy_set_header Host $http_host;<br>proxy_set_header X-Real-IP $remote_addr;<br>proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;<br>proxy_set_header X-Forwarded-Proto $scheme;<br></code></pre><code> </code></p>
-<p>使用Tomcat作为应用服务器，可以通过配置Tomcat的server.xml文件，在Host元素内最后加入：</p>
-<p>&lt;Valve className=”org.apache.catalina.valves.RemoteIpValve” /“&gt;(最后”要去掉)</p>
+<p>使用Tomcat作为应用服务器，可以通过配置Tomcat的server.xml文件，在Host元素内最后加入：<br><code>&lt;Valve className=&quot;org.apache.catalina.valves.RemoteIpValve&quot; /&gt;</code></p>
 
       
     </div>

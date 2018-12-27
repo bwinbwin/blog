@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="kvm,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="KVM 介绍 KVM是以色列初创公司Qumranet开发，2008年9月RedHat公司收购了Qumranet">
-<meta name="keywords" content="kvm">
+<meta name="description" content="tomcat启动参数，将JVM GC信息写入tomcat_gc.log">
 <meta property="og:type" content="article">
-<meta property="og:title" content="KVM部署篇">
-<meta property="og:url" content="http://yunwei.github.io/2018/12/18/KVM部署篇/index.html">
+<meta property="og:title" content="tomcat查看GC信息">
+<meta property="og:url" content="http://yunwei.github.io/2018/12/27/tomcat查看GC信息/index.html">
 <meta property="og:site_name" content="yunwei&#39;s blog">
-<meta property="og:description" content="KVM 介绍 KVM是以色列初创公司Qumranet开发，2008年9月RedHat公司收购了Qumranet">
+<meta property="og:description" content="tomcat启动参数，将JVM GC信息写入tomcat_gc.log">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-20T07:18:54.448Z">
+<meta property="og:updated_time" content="2018-12-27T02:02:34.680Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KVM部署篇">
-<meta name="twitter:description" content="KVM 介绍 KVM是以色列初创公司Qumranet开发，2008年9月RedHat公司收购了Qumranet">
+<meta name="twitter:title" content="tomcat查看GC信息">
+<meta name="twitter:description" content="tomcat启动参数，将JVM GC信息写入tomcat_gc.log">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yunwei.github.io/2018/12/18/KVM部署篇/">
+  <link rel="canonical" href="http://yunwei.github.io/2018/12/27/tomcat查看GC信息/">
 
 
 
 
 
-  <title>KVM部署篇 | yunwei's blog</title>
+  <title>tomcat查看GC信息 | yunwei's blog</title>
   
 
 
@@ -295,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunwei.github.io/2018/12/18/KVM部署篇/">
+    <link itemprop="mainEntityOfPage" href="http://yunwei.github.io/2018/12/27/tomcat查看GC信息/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="文章">
@@ -312,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">KVM部署篇</h1>
+          <h1 class="post-title" itemprop="name headline">tomcat查看GC信息</h1>
         
 
         <div class="post-meta">
@@ -324,8 +323,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-18T11:28:47+08:00">
-                2018-12-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T09:57:04+08:00">
+                2018-12-27
               </time>
             
 
@@ -334,28 +333,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/虚拟化/" itemprop="url" rel="index">
-                    <span itemprop="name">虚拟化</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -384,57 +361,15 @@
       
 
       
-        <p>KVM 介绍</p>
-<pre><code>KVM是以色列初创公司Qumranet开发，2008年9月RedHat公司收购了Qumranet
-</code></pre><a id="more"></a>
-<pre><code>KVM是Linux内核的一个模块，它把Linux内核变成了一个Hypervisor
-KVM是完全开源的，RedHat基于KVM的虚拟化解决方案叫做RHEV
-KVM在Linux操作系统里面以进程的形式出现，由标准的Linux调度程序进行调度，这使得KVM能够使用Linux内核的已有功能，只有一个KVM内核模块还不能实现虚拟化的全部功能，就好比操作系统只有内核还不能成为一个完整的操作系统一样
-QEMU是一个开源的虚拟化软件，纯软件，可以虚拟化所以的硬件，性能不强
-KVM基于QEMU开发了一个能够运行在用户空间的工具QEMU-KVM
-磁盘、网络设备等都是通过QEMU-KVM这个工具模拟出来的
-KVM和QEMU-KVM通信是通过/dev/kvm实现的
-libvirt是用来管理KVM虚拟机的API，其命令为virsh
-</code></pre><p>CentOS 7.3 安装KVM</p>
-<pre><code>关闭 iptables 或者 firewalld
-关闭 selinux
-格式化新磁盘，挂载到 /kvm_data
-</code></pre><p><pre><code><br>[root@test01 ~]# fdisk -l<br>[root@test01 ~]# mkfs.ext4 /dev/sdb<br>[root@zhdya01 ~]# blkid /dev/sdb<br>/dev/sdb: UUID=”378895da-ded5-4312-8194-748125c795db” TYPE=”ext4”<br>[root@test01 ~]# mount /dev/sdb /kvm_data/<br>[root@test01 ~]# vim /etc/fstab<br>//增加如下：<br>/dev/sdb        /kvm_data       ext4    defaults        0 0<br></code></pre><code><br>下载一个centos7的镜像文件<br>检查cpu参数是否支持虚拟化</code></p>
-<p><pre><code><br>grep -Ei ‘vmx|svm’ /proc/cpuinfo<br></code></pre><code><br>安装kvm</code></p>
-<p><pre><code><br>yum install -y  virt-*  libvirt  bridge-utils qemu-img<br></code></pre><code><br>配置网卡</code></p>
-<p>增加一块虚拟网卡，目的就是为了打通宿主机和虚拟机的通信。</p>
-<p><pre><code><br>[root@test01 ~]# cd /etc/sysconfig/network-scripts/<br>[root@test01 network-scripts]# cp ifcfg-ens33 ifcfg-br0<br>[root@test01 network-scripts]# vim ifcfg-br0<br>TYPE=Bridge<br>BOOTPROTO=static<br>NAME=br0<br>DEVICE=br0<br>ONBOOT=yes<br>IPADDR=192.168.161.161<br>NETMASK=255.255.255.0<br>GATEWAY=192.168.161.2<br>DNS1=119.29.29.29<br>[root@test01 network-scripts]# vim ifcfg-ens33<br>TYPE=Ethernet<br>BOOTPROTO=static<br>DEVICE=ens33<br>ONBOOT=yes<br>BRIDGE=br0<br></code></pre><code></code></p>
-<p><pre><code><br>[root@test01 ~]# ifconfig<br>br0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500<br>        inet 192.168.161.161  netmask 255.255.255.0  broadcast 192.168.161.255<br>        inet6 fe80::d80e:8ff:fe32:4775  prefixlen 64  scopeid 0x20<link><br>        ether 00:0c:29:26:e9:ae  txqueuelen 1000  (Ethernet)<br>        RX packets 46  bytes 4473 (4.3 KiB)<br>        RX errors 0  dropped 0  overruns 0  frame 0<br>        TX packets 46  bytes 5831 (5.6 KiB)<br>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<br>ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500<br>        ether 00:0c:29:26:e9:ae  txqueuelen 1000  (Ethernet)<br>        RX packets 153404  bytes 210172913 (200.4 MiB)<br>        RX errors 0  dropped 0  overruns 0  frame 0<br>        TX packets 35293  bytes 4746555 (4.5 MiB)<br>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<br></code></pre><code><br>启动libvirtd</code></p>
-<p><pre><code><br>[root@test01 ~]# systemctl start libvirtd<br>[root@test01 ~]# ps axu |grep !$<br>ps axu |grep libvirtd<br>root      9127  5.1  0.4 615520 18384 ?        Ssl  14:28   0:00 /usr/sbin/libvirtd<br>root      9260  0.0  0.0 112680   976 pts/1    S+   14:29   0:00 grep –color=auto libvirtd<br></code></pre><code><br>查看桥接状态</code></p>
-<p><pre><code><br>[root@test01 ~]# brctl show<br>bridge name    bridge id        STP enabled    interfaces<br>br0        8000.000c2926e9ae    no        ens33<br>virbr0        8000.52540058db51    yes        virbr0-nic<br></code></pre><code><br>创建虚拟机并安装CentOS 7</code></p>
-<p>我这边测试是使用搭建的XFTP客户端直接上传的。这样快些。也就5分钟的样子。<br>命令行安装centos7</p>
-<p><pre><code><br>virt-install –name=zhdya01 –memory=512,maxmemory=1024 –vcpus=1,maxvcpus=2 –os-type=linux –os-variant=rhel7 –location=/tmp/CentOS-7.3-x86_64-DVD-1611.iso –disk path=/kvm_data/zhdya01.img,size=10 –bridge=br0 –graphics=none –console=pty,target_type=serial  –extra-args=”console=tty0 console=ttyS0”<br></code></pre><code></code></p>
-<p><pre><code><br>virt-install :使用命令安装<br>–name=zhdya01 ：名字为zhdya01<br>–memory=512,maxmemory=1024 ：最小内存为512M 最大为1024M<br>–vcpus=1,maxvcpus=2 ：最大最小CPU<br>–os-type=linux ：系统类型<br>–os-variant=rhel7 ：版本<br>–location=/tmp/CentOS-7.3-x86_64-DVD-1611.iso ：镜像位置（注意你的可能和我的不一致）<br>–disk path=/kvm_data/zhdya01.img,size=10 ：安装路径<br>–bridge=br0 ：桥接网卡<br>–graphics=none ：是否为图形界面（图形界面建议使用vnc软件连接）<br>–console=pty,target_type=serial  ：终端的属性<br>–extra-args=”console=tty0 console=ttyS0”<br></code></pre><code><br>经过一段时间的硬件检查，然后到了如下这个操作界面：</code></p>
-<p>mark</p>
-<p>输入对应菜单的编号回车 即可进入设置。等我们设置完每一项，在每一项的前面对应的方括号内都会变成 [X] 注意磁盘设置的时候是选择LVM还是标准分区。</p>
-<p>等待全部设置完毕，按 b 开始安装：</p>
-<p>mark</p>
-<p>等待安装的差不多之后就会自动重启（当然宿主机也会重新启动！）。<br>虚拟机管理</p>
-<p><pre><code><br>[root@test01 network-scripts]# virsh list      //查看虚拟机列表，只能看到运行的虚拟机<br></code></pre><code></code></p>
-<p><pre><code><br>[root@test01 network-scripts]# virsh list –all  //查看虚拟机列表，包括未运行的虚拟机<br>test01                        关闭<br></code></pre><code></code></p>
-<p><pre><code><br>[root@test01 network-scripts]# virsh start zhdya01  //启动test01这个虚拟主机  v域 test01 已开始<br></code></pre><code></code></p>
-<p><pre><code><br>[root@test01 network-scripts]# virsh list<br> 1     test01                        running<br></code></pre><code></code></p>
-<p><pre><code><br>[root@test01 network-scripts]# virsh console test01  /进入主机的控制端 连接到域 test01<br></code></pre><code><br>一般第一次进入虚拟主机，需要重新获得一个新的IP地址：</code></p>
-<p><pre><code><br>[root@localhost ~]# ip addr<br>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1<br>    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00<br>    inet 127.0.0.1/8 scope host lo<br>       valid_lft forever preferred_lft forever<br>    inet6 ::1/128 scope host<br>       valid_lft forever preferred_lft forever<br>2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000<br>    link/ether 52:54:00:02:cf:d7 brd ff:ff:ff:ff:ff:ff</code></pre></p>
-<p>[root@localhost ~]# dhclient eth0<br><code></code></p>
-<p><pre><code><br>[root@localhost ~]# ip addr<br>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1<br>    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00<br>    inet 127.0.0.1/8 scope host lo<br>       valid_lft forever preferred_lft forever<br>    inet6 ::1/128 scope host<br>       valid_lft forever preferred_lft forever<br>2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000<br>    link/ether 52:54:00:02:cf:d7 brd ff:ff:ff:ff:ff:ff<br>    inet 192.168.161.129/24 brd 192.168.161.255 scope global dynamic eth0<br></code></pre><code><br>这样我就获得了一个和宿主机一个网段的IP地址（当然网络也是畅通的）</code></p>
-<p><pre><code><br>[root@localhost ~]# ping <a href="http://www.okay686.cn" target="_blank" rel="noopener">www.okay686.cn</a><br>PING <a href="http://www.okay686.cn" target="_blank" rel="noopener">www.okay686.cn</a> (122.190.3.199) 56(84) bytes of data.<br>64 bytes from 122.190.3.199 (122.190.3.199): icmp_seq=1 ttl=128 time=32.7 ms<br>64 bytes from 122.190.3.199 (122.190.3.199): icmp_seq=2 ttl=128 time=40.0 ms<br></code></pre><code><br>//安装一个net-tools 待会测试用</code></p>
-<p><pre><code><br>[root@localhost ~]# yum install -y net-tools<br>已加载插件：fastestmirror<br>base                                                     | 3.6 kB     00:00<br>extras                                                   | 3.4 kB     00:00<br>updates                                                  | 3.4 kB     00:00<br>(1/4): base/7/x86_64/group_gz                              | 156 kB   00:01<br>(2/4): extras/7/x86_64/primary_db                          | 166 kB   00:02<br>(3/4): base/7/x86_64/primary_db                            | 5.7 MB   00:15<br></code></pre><code><br>更多操作经常使用的指令如下：</code></p>
-<p><pre><code><br>virsh shutdown test01  //关闭虚拟机<br>virsh start test01     //开启虚拟机<br>virsh destroy test01   //类似stop，这个是强制停止<br>virsh undefine test01  //彻底销毁虚拟机，会删除虚拟机配置文件，virsh list –all就看不到了<br>ls /etc/libvirt/qemu/  //可以查看虚拟机配置文件<br>virsh autostart test01    //宿主机开机该虚拟机也开机<br>virsh autostart –disable test01  //解除开机启动<br>virsh suspend test01  //挂起<br>virsh resume test01   //恢复<br></code></pre><code><br>克隆虚拟机</code></p>
-<p>克隆虚拟机举个例子就和你在Vmware上面的操作差不多，是一个原理。使用场景：当我们在一台虚拟机搭建了台LNMP服务，后期一台虚拟主机可能扛不住那么大的使用压力，我们可以再次创建一台新的虚拟机来分担。这样我们只需要克隆一台修改下配置即可，大大缩短了时间，提高了工作效率！</p>
-<p>首先需要把克隆的机器断电</p>
-<p><pre><code><br>[root@test01 ~]# virsh shutdown test01<br>[root@test01 ~]# virt-clone –original zhdya01 –name test02 –file /kvm_data/test02<br>正在分配 ‘test02’                 |  10 GB  00:01:15<br>成功克隆 ‘test02’。<br></code></pre><code><br>–original指定克隆源虚拟机<br>–name指定克隆后的虚拟机名字<br>–file指定目标虚拟机的虚拟磁盘文件</code></p>
-<p>如果test01虚拟机开机状态，则提示先关闭或者暂停虚拟机</p>
-<p>针对刚刚克隆的机器 我们去测试下 刚刚安装的 net-tools 命令是否存在</p>
-<p><pre><code><br>[root@test01 ~]# virsh start test02<br>域 test02 已开始<br>[root@test01 ~]# virsh console test02<br>连接到域 test02<br>[root@localhost ~]# ifconfig        //可以使用，但是没有IP地址<br>eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500<br>        ether 52:54:00:44:3b:f6  txqueuelen 1000  (Ethernet)<br>[root@localhost ~]# dhclient eth0<br>[root@localhost ~]# ifconfig<br>eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500<br>        inet 192.168.161.130  netmask 255.255.255.0  broadcast 192.168.161.255<br></code></pre><code><br>这样就玩成了一个虚拟主机的克隆，且也可以成功获取一个和宿主机一样的IP地址。</code></p>
-<p>但是随着工作的需要，未来我们可能需要使用咱们的宿主机（类似于跳板机…）然后搞个ansible 是不是就很方便的去管理了呢？ 当然咱们的虚拟主机也可以使用 ssh 的方式去连接，没有必要使用 virsh console 这个语句了。</p>
-<p><pre><code><br>[root@test01 ~]# ssh-copy-id -i ./.ssh/id_rsa.pub <a href="mailto:root@192.168.161.130" target="_blank" rel="noopener">root@192.168.161.130</a>     //这样我们就成功的在虚拟主机上面配置了宿主机的公钥。<br>[root@test01 ~]# ssh 192.168.161.130<br>Last login: Sun Feb  4 17:01:00 2018<br>[root@bogon ~]# ip addr     //这样就成功的从宿主机登录到了虚拟主机。<br>2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000<br>    link/ether 52:54:00:44:3b:f6 brd ff:ff:ff:ff:ff:ff<br>    inet 192.168.161.130/24 brd 192.168.161.255 scope global dynamic eth0<br></code></pre><code><br>未来的工作当中，当然我们也是使用这样方式来管理虚拟主机的。<br>快照管理<br>    快照的功能，不多说了，很方便，公司目前几乎所有的服务器均在阿里云，有时候我们的备份方式之一就是使用快照，简单_粗暴_效率！</code></p>
-<p><pre><code><br>[root@test01 ~]# virsh snapshot-create test01     //创建一个test02的快照已生成域快照 1517735766<br>[root@test01 ~]# virsh snapshot-list test01 //查看快照列表<br>1517735766           2018-12-04 17:16:06 +0800 running<br>[root@test01 ~]# qemu-img info /kvm_data/test01.img<br>image: /kvm_data/test01.img<br>file format: qcow2<br>virtual size: 10G (10737418240 bytes)<br>disk size: 1.3G<br>cluster_size: 65536<br>Format specific information:<br>    compat: 1.1<br>    lazy refcounts: true<br>file format: qcow2 //快照文件的类型。<br>看到了，如上的文件类型，我就需要说下这个：raw格式的虚拟磁盘不支持做快照，qcow2支持。<br>virsh snapshot-current test01  //查看当前快照版本<br>[root@test01 ~]# ls /var/lib/libvirt/qemu/snapshot/    //查看所有快照配置文件（创建一次，就会在zhdya目录里面生成一个快照的配置文件）<br>test01  test02<br>virsh snapshot-revert  test01 1517735766    //恢复指定快照<br>[root@test01 ~]# virsh snapshot-delete test01 1517736361      //删除快照<br>已删除域快照 1517736361<br></code></pre><code></code></p>
+        <p>tomcat启动参数，将JVM GC信息写入tomcat_gc.log<br><a id="more"></a></p>
+<p><pre><code><br>CATALINA_OPTS=’-Xms512m -Xmx4096m -XX:PermSize=64M -XX:MaxNewSize=128m -XX:MaxPermSize=64m -XX:ParallelGCThreads=8 -XX:+UseConcMarkSweepGC -Xloggc:/var/log/search/tomcat_gc.log’<br></code></pre><code><br>各个参数含义，以及GC机制，参考下文：<br>一、相关概念<br>基本回收算法</code></p>
+<p><pre><code><br>    引用计数（Reference Counting）<br>    比较古老的回收算法。原理是此对象有一个引用，即增加一个计数，删除一个引用则减少一个计数。垃圾回收时，只用收集计数为0的对象。此算法最致命的是无法处理循环引用的问题。<br>    标记-清除（Mark-Sweep）<br>    此算法执行分两阶段。第一阶段从引用根节点开始标记所有被引用的对象，第二阶段遍历整个堆，把未标记的对象清除。此算法需要暂停整个应用，同时，会产生内存碎片。<br>    复制（Copying）<br>    此 算法把内存空间划为两个相等的区域，每次只使用其中一个区域。垃圾回收时，遍历当前使用区域，把正在使用中的对象复制到另外一个区域中。次算法每次只处理 正在使用中的对象，因此复制成本比较小，同时复制过去以后还能进行相应的内存整理，不过出现“碎片”问题。当然，此算法的缺点也是很明显的，就是需要两倍 内存空间。<br>    标记-整理（Mark-Compact）<br>    此算法结合了“标记-清除”和“复 制”两个算法的优点。也是分两阶段，第一阶段从根节点开始标记所有被引用对象，第二阶段遍历整个堆，把清除未标记对象并且把存活对象“压缩”到堆的其中一 块，按顺序排放。此算法避免了“标记-清除”的碎片问题，同时也避免了“复制”算法的空间问题。<br>    增量收集（Incremental Collecting）<br>    实施垃圾回收算法，即：在应用进行的同时进行垃圾回收。不知道什么原因JDK5.0中的收集器没有使用这种算法的。<br>    分代（Generational Collecting）<br>    基于对对象生命周期分析后得出的垃圾回收算法。把对象分为年青代、年老代、持久代，对不同生命周期的对象使用不同的算法（上述方式中的一个）进行回收。现在的垃圾回收器（从J2SE1.2开始）都是使用此算法的。<br></code></pre><code><br>分代垃圾回收详述</code></p>
+<p><pre><code><br>    Young（年轻代）<br>    年 轻代分三个区。一个Eden区，两个Survivor区。大部分对象在Eden区中生成。当Eden区满时，还存活的对象将被复制到Survivor区 （两个中的一个），当这个Survivor区满时，此区的存活对象将被复制到另外一个Survivor区，当这个Survivor去也满了的时候，从第一 个Survivor区复制过来的并且此时还存活的对象，将被复制“年老区(Tenured)”。需要注意，Survivor的两个区是对称的，没先后关 系，所以同一个区中可能同时存在从Eden复制过来 对象，和从前一个Survivor复制过来的对象，而复制到年老区的只有从第一个Survivor去过来的对象。而且，Survivor区总有一个是空 的。<br>    Tenured（年老代）<br>    年老代存放从年轻代存活的对象。一般来说年老代存放的都是生命期较长的对象。<br>    Perm（持久代）<br>    用 于存放静态文件，如今Java类、方法等。持久代对垃圾回收没有显著影响，但是有些应用可能动态生成或者调用一些class，例如Hibernate等， 在这种时候需要设置一个比较大的持久代空间来存放这些运行过程中新增的类。持久代大小通过-XX:MaxPermSize=进行设置。<br></code></pre><code><br>GC类型<br>GC有两种类型：Scavenge GC和Full GC。</code></p>
+<p><pre><code><br>    Scavenge GC<br>    一般情况下，当新对象生成，并且在Eden申请空间失败时，就好触发Scavenge GC，堆Eden区域进行GC，清除非存活对象，并且把尚且存活的对象移动到Survivor区。然后整理Survivor的两个区。<br>    Full GC<br>    对整个堆进行整理，包括Young、Tenured和Perm。Full GC比Scavenge GC要慢，因此应该尽可能减少Full GC。有如下原因可能导致Full GC：<br>        Tenured被写满<br>        Perm域被写满<br>        System.gc()被显示调用<br>        上一次GC之后Heap的各域分配策略动态变化<br></code></pre><code><br>二、垃圾回收器<br>目前的收集器主要有三种：串行收集器、并行收集器、并发收集器。</code></p>
+<p><pre><code><br>    串行收集器<br>    使用单线程处理所有垃圾回收工作，因为无需多线程交互，所以效率比较高。但是，也无法使用多处理器的优势，所以此收集器适合单处理器机器。当然，此收集器也可以用在小数据量（100M左右）情况下的多处理器机器上。可以使用-XX:+UseSerialGC打开。<br>    并行收集器<br>        对年轻代进行并行垃圾回收，因此可以减少垃圾回收时间。一般在多线程多处理器机器上使用。使用-XX:+UseParallelGC.打开。并行收集器在J2SE5.0第六6更新上引入，在Java SE6.0中进行了增强–可以堆年老代进行并行收集。如果年老代不使用并发收集的话，是使用单线程进行垃圾回收，因此会制约扩展能力。使用-XX:+UseParallelOldGC打开。<br>        使用-XX:ParallelGCThreads=设置并行垃圾回收的线程数。此值可以设置与机器处理器数量相等。<br>    此收集器可以进行如下配置：<br>    最大垃圾回收暂停:指定垃圾回收时的最长暂停时间，通过-XX:MaxGCPauseMillis=指定。为毫秒.如果指定了此值的话，堆大小和垃圾回收相关参数会进行调整以达到指定值。设定此值可能会减少应用的吞吐量。<br>    吞吐量:吞吐量为垃圾回收时间与非垃圾回收时间的比值，通过-XX:GCTimeRatio=来设定，公式为1/（1+N）。例如，-XX:GCTimeRatio=19时，表示5%的时间用于垃圾回收。默认情况为99，即1%的时间用于垃圾回收。<br>    并发收集器<br>    可以保证大部分工作都并发进行（应用不停止），垃圾回收只暂停很少的时间，此收集器适合对响应时间要求比较高的中、大规模应用。使用-XX:+UseConcMarkSweepGC打开。<br>   并发收集器主要减少年老代的暂停时间，他在应用不停止的情况下使用独立的垃圾回收线程，跟踪可达对象。在每个年老代垃圾回收周期中，在收集初期并发收集器会 对整个应用进行简短的暂停，在收集中还会再暂停一次。第二次暂停会比第一次稍长，在此过程中多个线程同时进行垃圾回收工作。<br>   并发收集器使用处理器换来短暂的停顿时间。在一个N个处理器的系统上，并发收集部分使用K/N个可用处理器进行回收，一般情况下1&lt;=K&lt;=N/4。<br>   在只有一个处理器的主机上使用并发收集器，设置为incremental mode模式也可获得较短的停顿时间。<br>   浮动垃圾：由于在应用运行的同时进行垃圾回收，所以有些垃圾可能在垃圾回收进行完成时产生，这样就造成了“Floating Garbage”，这些垃圾需要在下次垃圾回收周期时才能回收掉。所以，并发收集器一般需要20%的预留空间用于这些浮动垃圾。<br>  Concurrent Mode Failure：并发收集器在应用运行时进行收集，所以需要保证堆在垃圾回收的这段时间有足够的空间供程序使用，否则，垃圾回收还未完成，堆空间先满了。这种情况下将会发生“并发模式失败”，此时整个应用将会暂停，进行垃圾回收。<br>  启动并发收集器：因为并发收集在应用运行时进行收集，所以必须保证收集完成之前有足够的内存空间供程序使用，否则会出现“Concurrent Mode Failure”。通过设置-XX:CMSInitiatingOccupancyFraction=指定还有多少剩余堆时开始执行并发收集<br>    小结<br>        串行处理器：<br>        –适用情况：数据量比较小（100M左右）；单处理器下并且对响应时间无要求的应用。<br>        –缺点：只能用于小型应用<br>        并行处理器：<br>        –适用情况：“对吞吐量有高要求”，多CPU、对应用响应时间无要求的中、大型应用。举例：后台处理、科学计算。<br>        –缺点：应用响应时间可能较长<br>        并发处理器：<br>        –适用情况：“对响应时间有高要求”，多CPU、对应用响应时间有较高要求的中、大型应用。举例：Web服务器/应用服务器、电信交换、集成开发环境。<br></code></pre><code><br>三、常见配置举例</code></p>
+<p><pre><code><br>    堆大小设置<br>    JVM 中最大堆大小有三方面限制：相关操作系统的数据模型（32-bt还是64-bit）限制；系统的可用虚拟内存限制；系统的可用物理内存限制。32位系统 下，一般限制在1.5G~2G；64为操作系统对内存无限制。我在Windows Server 2003 系统，3.5G物理内存，JDK5.0下测试，最大可设置为1478m。<br>    典型设置：<br>        java -Xmx3550m -Xms3550m -Xmn2g -Xss128k<br>        -Xmx3550m：设置JVM最大可用内存为3550M。<br>        -Xms3550m：设置JVM促使内存为3550m。此值可以设置与-Xmx相同，以避免每次垃圾回收完成后JVM重新分配内存。<br>        -Xmn2g：设置年轻代大小为2G。整个堆大小=年轻代大小 + 年老代大小 + 持久代大小。持久代一般固定大小为64m，所以增大年轻代后，将会减小年老代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。<br>        -Xss128k： 设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内 存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。<br>        java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPermSize=16m -XX:MaxTenuringThreshold=0<br>        -XX:NewRatio=4:设置年轻代（包括Eden和两个Survivor区）与年老代的比值（除去持久代）。设置为4，则年轻代与年老代所占比值为1：4，年轻代占整个堆栈的1/5<br>        -XX:SurvivorRatio=4：设置年轻代中Eden区与Survivor区的大小比值。设置为4，则两个Survivor区与一个Eden区的比值为2:4，一个Survivor区占整个年轻代的1/6<br>        -XX:MaxPermSize=16m:设置持久代大小为16m。<br>        -XX:MaxTenuringThreshold=0：设置垃圾最大年龄。如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代。对于年老代比较多的应用，可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象再年轻代的存活时间，增加在年轻代即被回收的概论。<br>    回收器选择<br>    JVM给了三种选择：串行收集器、并行收集器、并发收集器，但是串行收集器只适用于小数据量的情况，所以这里的选择主要针对并行收集器和并发收集器。默认情况下，JDK5.0以前都是使用串行收集器，如果想使用其他收集器需要在启动时加入相应参数。JDK5.0以后，JVM会根据当前系统配置进行判断。<br>        吞吐量优先的并行收集器<br>        如上文所述，并行收集器主要以到达一定的吞吐量为目标，适用于科学技术和后台处理等。<br>        典型配置：<br>            java -Xmx3800m -Xms3800m -Xmn2g -Xss128k -XX:+UseParallelGC -XX:ParallelGCThreads=20<br>            -XX:+UseParallelGC：选择垃圾收集器为并行收集器。此配置仅对年轻代有效。即上述配置下，年轻代使用并发收集，而年老代仍旧使用串行收集。<br>            -XX:ParallelGCThreads=20：配置并行收集器的线程数，即：同时多少个线程一起进行垃圾回收。此值最好配置与处理器数目相等。<br>            java -Xmx3550m -Xms3550m -Xmn2g -Xss128k -XX:+UseParallelGC -XX:ParallelGCThreads=20 -XX:+UseParallelOldGC<br>            -XX:+UseParallelOldGC：配置年老代垃圾收集方式为并行收集。JDK6.0支持对年老代并行收集。<br>            java -Xmx3550m -Xms3550m -Xmn2g -Xss128k -XX:+UseParallelGC  -XX:MaxGCPauseMillis=100<br>            -XX:MaxGCPauseMillis=100:设置每次年轻代垃圾回收的最长时间，如果无法满足此时间，JVM会自动调整年轻代大小，以满足此值。<br>            java -Xmx3550m -Xms3550m -Xmn2g -Xss128k -XX:+UseParallelGC  -XX:MaxGCPauseMillis=100 -XX:+UseAdaptiveSizePolicy<br>            -XX:+UseAdaptiveSizePolicy：设置此选项后，并行收集器会自动选择年轻代区大小和相应的Survivor区比例，以达到目标系统规定的最低相应时间或者收集频率等，此值建议使用并行收集器时，一直打开。<br>        响应时间优先的并发收集器<br>        如上文所述，并发收集器主要是保证系统的响应时间，减少垃圾收集时的停顿时间。适用于应用服务器、电信领域等。<br>        典型配置：<br>            java -Xmx3550m -Xms3550m -Xmn2g -Xss128k -XX:ParallelGCThreads=20 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC<br>            -XX:+UseConcMarkSweepGC：设置年老代为并发收集。测试中配置这个以后，-XX:NewRatio=4的配置失效了，原因不明。所以，此时年轻代大小最好用-Xmn设置。<br>            -XX:+UseParNewGC:设置年轻代为并行收集。可与CMS收集同时使用。JDK5.0以上，JVM会根据系统配置自行设置，所以无需再设置此值。<br>            java -Xmx3550m -Xms3550m -Xmn2g -Xss128k -XX:+UseConcMarkSweepGC -XX:CMSFullGCsBeforeCompaction=5 -XX:+UseCMSCompactAtFullCollection<br>            -XX:CMSFullGCsBeforeCompaction：由于并发收集器不对内存空间进行压缩、整理，所以运行一段时间以后会产生“碎片”，使得运行效率降低。此值设置运行多少次GC以后对内存空间进行压缩、整理。<br>            -XX:+UseCMSCompactAtFullCollection：打开对年老代的压缩。可能会影响性能，但是可以消除碎片<br>    辅助信息<br>    JVM提供了大量命令行参数，打印信息，供调试使用。主要有以下一些：<br>        -XX:+PrintGC<br>        输出形式：[GC 118250K-&gt;113543K(130112K), 0.0094143 secs]<br>                        [Full GC 121376K-&gt;10414K(130112K), 0.0650971 secs]<br>        -XX:+PrintGCDetails<br>        输出形式：[GC [DefNew: 8614K-&gt;781K(9088K), 0.0123035 secs] 118250K-&gt;113543K(130112K), 0.0124633 secs]<br>       [GC [DefNew: 8614K-&gt;8614K(9088K), 0.0000665 secs][Tenured: 112761K-&gt;10414K(121024K), 0.0433488 secs] 121376K-&gt;10414K(130112K), 0.0436268 secs]<br>        -XX:+PrintGCTimeStamps -XX:+PrintGC：PrintGCTimeStamps可与上面两个混合使用<br>        输出形式：11.851: [GC 98328K-&gt;93620K(130112K), 0.0082960 secs]<br>        -XX:+PrintGCApplicationConcurrentTime:打印每次垃圾回收前，程序未中断的执行时间。可与上面混合使用<br>        输出形式：Application time: 0.5291524 seconds<br>        -XX:+PrintGCApplicationStoppedTime：打印垃圾回收期间程序暂停的时间。可与上面混合使用<br>        输出形式：Total time for which application threads were stopped: 0.0468229 seconds<br>        -XX:PrintHeapAtGC:打印GC前后的详细堆栈信息<br>        输出形式：<br>        34.702: [GC {Heap before gc invocations=7:<br>        def new generation   total 55296K, used 52568K [0x1ebd0000, 0x227d0000, 0x227d0000)<br>        eden space 49152K,  99% used [0x1ebd0000, 0x21bce430, 0x21bd0000)<br>        from space 6144K,  55% used [0x221d0000, 0x22527e10, 0x227d0000)<br>        to   space 6144K,   0% used [0x21bd0000, 0x21bd0000, 0x221d0000)<br>        tenured generation   total 69632K, used 2696K [0x227d0000, 0x26bd0000, 0x26bd0000)<br>        the space 69632K,   3% used [0x227d0000, 0x22a720f8, 0x22a72200, 0x26bd0000)<br>        compacting perm gen  total 8192K, used 2898K [0x26bd0000, 0x273d0000, 0x2abd0000)<br>        the space 8192K,  35% used [0x26bd0000, 0x26ea4ba8, 0x26ea4c00, 0x273d0000)<br>        ro space 8192K,  66% used [0x2abd0000, 0x2b12bcc0, 0x2b12be00, 0x2b3d0000)<br>        rw space 12288K,  46% used [0x2b3d0000, 0x2b972060, 0x2b972200, 0x2bfd0000)<br>        34.735: [DefNew: 52568K-&gt;3433K(55296K), 0.0072126 secs] 55264K-&gt;6615K(124928K)Heap after gc invocations=8:<br>        def new generation   total 55296K, used 3433K [0x1ebd0000, 0x227d0000, 0x227d0000)<br>        eden space 49152K,   0% used [0x1ebd0000, 0x1ebd0000, 0x21bd0000)<br>        from space 6144K,  55% used [0x21bd0000, 0x21f2a5e8, 0x221d0000)<br>        to   space 6144K,   0% used [0x221d0000, 0x221d0000, 0x227d0000)<br>        tenured generation   total 69632K, used 3182K [0x227d0000, 0x26bd0000, 0x26bd0000)<br>        the space 69632K,   4% used [0x227d0000, 0x22aeb958, 0x22aeba00, 0x26bd0000)<br>        compacting perm gen  total 8192K, used 2898K [0x26bd0000, 0x273d0000, 0x2abd0000)<br>        the space 8192K,  35% used [0x26bd0000, 0x26ea4ba8, 0x26ea4c00, 0x273d0000)<br>        ro space 8192K,  66% used [0x2abd0000, 0x2b12bcc0, 0x2b12be00, 0x2b3d0000)<br>        rw space 12288K,  46% used [0x2b3d0000, 0x2b972060, 0x2b972200, 0x2bfd0000)<br>        }<br>        , 0.0757599 secs]<br>        -Xloggc:filename:与上面几个配合使用，把相关日志信息记录到文件以便分析。<br>        </code></pre><code><br>    常见配置汇总<br>    <pre><code><br>        堆设置<br>            -Xms:初始堆大小<br>            -Xmx:最大堆大小<br>            -XX:NewSize=n:设置年轻代大小<br>            -XX:NewRatio=n:设置年轻代和年老代的比值。如:为3，表示年轻代与年老代比值为1：3，年轻代占整个年轻代年老代和的1/4<br>            -XX:SurvivorRatio=n:年轻代中Eden区与两个Survivor区的比值。注意Survivor区有两个。如：3，表示Eden：Survivor=3：2，一个Survivor区占整个年轻代的1/5<br>            -XX:MaxPermSize=n:设置持久代大小<br>        收集器设置<br>            -XX:+UseSerialGC:设置串行收集器<br>            -XX:+UseParallelGC:设置并行收集器<br>            -XX:+UseParalledlOldGC:设置并行年老代收集器<br>            -XX:+UseConcMarkSweepGC:设置并发收集器<br>        垃圾回收统计信息<br>            -XX:+PrintGC<br>            -XX:+PrintGCDetails<br>            -XX:+PrintGCTimeStamps<br>            -Xloggc:filename<br>        并行收集器设置<br>            -XX:ParallelGCThreads=n:设置并行收集器收集时使用的CPU数。并行收集线程数。<br>            -XX:MaxGCPauseMillis=n:设置并行收集最大暂停时间<br>            -XX:GCTimeRatio=n:设置垃圾回收时间占程序运行时间的百分比。公式为1/(1+n)<br>        并发收集器设置<br>            -XX:+CMSIncrementalMode:设置为增量模式。适用于单CPU情况。<br>            -XX:ParallelGCThreads=n:设置并发收集器年轻代收集方式为并行收集时，使用的CPU数。并行收集线程数。<br></code></pre><code> </code></code></p>
+<p>四、调优总结</p>
+<p><pre><code><br>    年轻代大小选择<br>        响应时间优先的应用：尽可能设大，直到接近系统的最低响应时间限制（根据实际情况选择）。在此种情况下，年轻代收集发生的频率也是最小的。同时，减少到达年老代的对象。<br>        吞吐量优先的应用：尽可能的设置大，可能到达Gbit的程度。因为对响应时间没有要求，垃圾收集可以并行进行，一般适合8CPU以上的应用。<br>    年老代大小选择<br>        响应时间优先的应用：年老代使用并发收集器，所以其大小需要小心设置，一般要考虑并发会话率和会话持续时间等一些参数。如果堆设置小了，可以会造成内存碎片、高回收频率以及应用暂停而使用传统的标记清除方式；如果堆大了，则需要较长的收集时间。最优化的方案，一般需要参考以下数据获得：<br>            并发垃圾收集信息<br>            持久代并发收集次数<br>            传统GC信息<br>            花在年轻代和年老代回收上的时间比例<br>        减少年轻代和年老代花费的时间，一般会提高应用的效率<br>        吞吐量优先的应用：一般吞吐量优先的应用都有一个很大的年轻代和一个较小的年老代。原因是，这样可以尽可能回收掉大部分短期对象，减少中期的对象，而年老代尽存放长期存活对象。<br>    较小堆引起的碎片问题<br>    因 为年老代的并发收集器使用标记、清除算法，所以不会对堆进行压缩。当收集器回收时，他会把相邻的空间进行合并，这样可以分配给较大的对象。但是，当堆空间 较小时，运行一段时间以后，就会出现“碎片”，如果并发收集器找不到足够的空间，那么并发收集器将会停止，然后使用传统的标记、清除方式进行回收。如果出 现“碎片”，可能需要进行如下配置：<br>        -XX:+UseCMSCompactAtFullCollection：使用并发收集器时，开启对年老代的压缩。<br>        -XX:CMSFullGCsBeforeCompaction=0：上面配置开启的情况下，这里设置多少次Full GC后，对年老代进行压缩<br>        </code></pre><code> </code></p>
 
       
     </div>
@@ -450,12 +385,6 @@ libvirt是用来管理KVM虚拟机的API，其命令为virsh
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/kvm/" rel="tag"># kvm</a>
-          
-        </div>
-      
 
       
       
@@ -465,15 +394,15 @@ libvirt是用来管理KVM虚拟机的API，其命令为virsh
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/12/21/apache-rocketmq集群搭建/" rel="next" title="apache-rocketmq集群搭建">
+                <i class="fa fa-chevron-left"></i> apache-rocketmq集群搭建
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/18/centos-1/" rel="prev" title="Centos7.4 修改MySQL5.7 root 密码">
-                Centos7.4 修改MySQL5.7 root 密码 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

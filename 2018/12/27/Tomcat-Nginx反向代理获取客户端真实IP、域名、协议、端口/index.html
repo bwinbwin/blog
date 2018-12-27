@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="yunwei&#39;s blog">
-<meta property="og:url" content="http://yunwei.github.io/categories/nginx/index.html">
+<meta name="description" content="nginx反向代理配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tomcat + Nginx反向代理获取客户端真实IP、域名、协议、端口">
+<meta property="og:url" content="http://yunwei.github.io/2018/12/27/Tomcat-Nginx反向代理获取客户端真实IP、域名、协议、端口/index.html">
 <meta property="og:site_name" content="yunwei&#39;s blog">
+<meta property="og:description" content="nginx反向代理配置">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-27T02:49:52.473Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yunwei&#39;s blog">
+<meta name="twitter:title" content="Tomcat + Nginx反向代理获取客户端真实IP、域名、协议、端口">
+<meta name="twitter:description" content="nginx反向代理配置">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yunwei.github.io/categories/nginx/">
+  <link rel="canonical" href="http://yunwei.github.io/2018/12/27/Tomcat-Nginx反向代理获取客户端真实IP、域名、协议、端口/">
 
 
 
 
 
-  <title>分类: nginx | yunwei's blog</title>
+  <title>Tomcat + Nginx反向代理获取客户端真实IP、域名、协议、端口 | yunwei's blog</title>
   
 
 
@@ -140,7 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -276,53 +280,151 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>nginx<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yunwei.github.io/2018/12/27/Tomcat-Nginx反向代理获取客户端真实IP、域名、协议、端口/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="文章">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yunwei's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/12/19/nginx/" itemprop="url">
-              
-                <span itemprop="name">Nginx在CDN加速之后，获取用户真实IP做并发访问限制的方法</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Tomcat + Nginx反向代理获取客户端真实IP、域名、协议、端口</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-19T21:41:12+08:00" content="2018-12-19">
-          12-19
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T10:45:51+08:00">
+                2018-12-27
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    </div>
+      
 
+      
+        <p>nginx反向代理配置<br><a id="more"></a></p>
+<p><pre><code><br>proxy_set_header Host $http_host;<br>proxy_set_header X-Real-IP $remote_addr;<br>proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;<br>proxy_set_header X-Forwarded-Proto $scheme;<br></code></pre><code> </code></p>
+<p>使用Tomcat作为应用服务器，可以通过配置Tomcat的server.xml文件，在Host元素内最后加入：</p>
+<valve classname="org.apache.catalina.valves.RemoteIpValve">
+</valve>
+      
+    </div>
+    
+    
+    
+
+    <div>
+  
+    <div>  <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>  </div>
+
+  
+   </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/27/tomcat查看GC信息/" rel="next" title="tomcat查看GC信息">
+                <i class="fa fa-chevron-left"></i> tomcat查看GC信息
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -330,6 +432,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -549,6 +655,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

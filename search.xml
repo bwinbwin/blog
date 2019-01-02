@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[zabbix-server报错zabbix server is not running]]></title>
     <url>%2F2019%2F01%2F02%2Fzabbix-server%E6%8A%A5%E9%94%99zabbix-server-is-not-running%2F</url>
-    <content type="text"><![CDATA[zabbix-server报错zabbix server is not running 安装好zabbix-server后，打开web页面时看到zabbix-server报错zabbix server is not running; the informantion displayed may not be current排查过程：1、通过ps aux | grep zabbix可以看到zabbix-server是正常运行2、然后通过netstat -lntp命令再查看10051端口，发现10051端口没有启动解决办法： 编辑zabbix-server配置文件vim /etc/zabbix/zabbix_server.conf DBHost=localhost改成DBHost=127.0.0.1重启zabbix-server systemctl restart zabbix-server再次通过netstat -lntp可查看到10051端口已启动问题解决]]></content>
+    <content type="text"><![CDATA[zabbix-server报错zabbix server is not running 安装好zabbix-server后，打开web页面时看到zabbix-server报错zabbix server is not running; the informantion displayed may not be current排查过程：1、通过ps aux | grep zabbix可以看到zabbix-server是正常运行2、然后通过netstat -lntp命令再查看10051端口，发现10051端口没有启动解决办法： 编辑zabbix-server配置文件vim /etc/zabbix/zabbix_server.conf #DBHost=localhost改成DBHost=127.0.0.1重启zabbix-server systemctl restart zabbix-server再次通过netstat -lntp可查看到10051端口已启动问题解决]]></content>
   </entry>
   <entry>
     <title><![CDATA[centos7环境编译安装zabbix4.0server]]></title>

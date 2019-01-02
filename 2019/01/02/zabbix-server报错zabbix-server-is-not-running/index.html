@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="yunwei&#39;s blog">
 <meta property="og:description" content="zabbix-server报错zabbix server is not running">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-02T06:32:29.026Z">
+<meta property="og:updated_time" content="2019-01-02T07:41:14.148Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zabbix-server报错zabbix server is not running">
 <meta name="twitter:description" content="zabbix-server报错zabbix server is not running">
@@ -364,8 +364,8 @@
         <p>zabbix-server报错zabbix server is not running<br><a id="more"></a></p>
 <p><pre><code><br>安装好zabbix-server后，打开web页面时看到zabbix-server报错zabbix server is not running; the informantion displayed may not be current排查过程：<br>1、通过ps aux | grep zabbix可以看到zabbix-server是正常运行<br>2、然后通过netstat -lntp命令再查看10051端口，发现10051端口没有启动<br></code></pre><code><br>解决办法：</code></p>
 <p><pre><code><br>编辑zabbix-server配置文件<br>vim /etc/zabbix/zabbix_server.conf</code></pre></p>
-<h1 id="DBHost-localhost改成DBHost-127-0-0-1"><a href="#DBHost-localhost改成DBHost-127-0-0-1" class="headerlink" title="DBHost=localhost改成DBHost=127.0.0.1"></a>DBHost=localhost改成DBHost=127.0.0.1</h1><p><code><br>重启zabbix-server</code></p>
-<p><pre><code><br>systemctl restart zabbix-server<br>再次通过netstat -lntp可查看到10051端口已启动<br>问题解决</code></pre><code> </code></p>
+<p>#DBHost=localhost改成DBHost=127.0.0.1<br><code><br>重启zabbix-server</code></p>
+<p><pre><code><br>systemctl restart zabbix-server<br>再次通过netstat -lntp可查看到10051端口已启动<br>问题解决</code></pre><code></code></p>
 
       
     </div>
@@ -457,17 +457,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -527,22 +518,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DBHost-localhost改成DBHost-127-0-0-1"><span class="nav-number">1.</span> <span class="nav-text">DBHost=localhost改成DBHost=127.0.0.1</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

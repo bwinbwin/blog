@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="nginx,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="Nginx 有2个模块用于控制访问“数量”和“速度”，简单的说，控制你最多同时有 多少个访问，并且控制你每秒钟最多访问多少次， 你的同时并发访问不能太多，也不能太快，不然就“杀无赦”。">
-<meta name="keywords" content="nginx">
+<meta name="description" content="zabbix-server报错zabbix server is not running">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx在CDN加速之后，获取用户真实IP做并发访问限制的方法">
-<meta property="og:url" content="http://yunwei.github.io/2018/12/19/nginx/index.html">
+<meta property="og:title" content="zabbix-server报错zabbix server is not running">
+<meta property="og:url" content="http://yunwei.github.io/2019/01/02/zabbix-server报错zabbix-server-is-not-running/index.html">
 <meta property="og:site_name" content="yunwei&#39;s blog">
-<meta property="og:description" content="Nginx 有2个模块用于控制访问“数量”和“速度”，简单的说，控制你最多同时有 多少个访问，并且控制你每秒钟最多访问多少次， 你的同时并发访问不能太多，也不能太快，不然就“杀无赦”。">
+<meta property="og:description" content="zabbix-server报错zabbix server is not running">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-20T02:23:22.591Z">
+<meta property="og:updated_time" content="2019-01-02T06:32:29.026Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nginx在CDN加速之后，获取用户真实IP做并发访问限制的方法">
-<meta name="twitter:description" content="Nginx 有2个模块用于控制访问“数量”和“速度”，简单的说，控制你最多同时有 多少个访问，并且控制你每秒钟最多访问多少次， 你的同时并发访问不能太多，也不能太快，不然就“杀无赦”。">
+<meta name="twitter:title" content="zabbix-server报错zabbix server is not running">
+<meta name="twitter:description" content="zabbix-server报错zabbix server is not running">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yunwei.github.io/2018/12/19/nginx/">
+  <link rel="canonical" href="http://yunwei.github.io/2019/01/02/zabbix-server报错zabbix-server-is-not-running/">
 
 
 
 
 
-  <title>Nginx在CDN加速之后，获取用户真实IP做并发访问限制的方法 | yunwei's blog</title>
+  <title>zabbix-server报错zabbix server is not running | yunwei's blog</title>
   
 
 
@@ -295,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunwei.github.io/2018/12/19/nginx/">
+    <link itemprop="mainEntityOfPage" href="http://yunwei.github.io/2019/01/02/zabbix-server报错zabbix-server-is-not-running/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="文章">
@@ -312,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Nginx在CDN加速之后，获取用户真实IP做并发访问限制的方法</h1>
+          <h1 class="post-title" itemprop="name headline">zabbix-server报错zabbix server is not running</h1>
         
 
         <div class="post-meta">
@@ -324,8 +323,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T21:41:12+08:00">
-                2018-12-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T14:27:26+08:00">
+                2019-01-02
               </time>
             
 
@@ -334,28 +333,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">nginx</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -384,84 +361,12 @@
       
 
       
-        <p>Nginx 有2个模块用于控制访问“数量”和“速度”，简单的说，控制你最多同时有 多少个访问，并且控制你每秒钟最多访问多少次， 你的同时并发访问不能太多，也不能太快，不然就“杀无赦”。<br><a id="more"></a><br>HttpLimitZoneModule    限制同时并发访问的数量</p>
-<p>HttpLimitReqModule      限制访问数据，每秒内最多几个请求</p>
-<p>普通配置就是针对【用户浏览器】→【网站服务器】这种常规模式的nginx配置（没有任何CDN服务）。对单IP做访问限制，绝大多数教程都是这样写的：</p>
-<p>用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址最多有 50 个并发连接</p>
-<p>你想开 几千个连接 刷死我？ 超过 50 个连接，直接返回 503 错误给你，根本不处理你的请求了</p>
-<pre><code>
-limit_conn_zone $binary_remote_addr zone=TotalConnLimitZone:10m ;
+        <p>zabbix-server报错zabbix server is not running<br><a id="more"></a></p>
+<p><pre><code><br>安装好zabbix-server后，打开web页面时看到zabbix-server报错zabbix server is not running; the informantion displayed may not be current排查过程：<br>1、通过ps aux | grep zabbix可以看到zabbix-server是正常运行<br>2、然后通过netstat -lntp命令再查看10051端口，发现10051端口没有启动<br></code></pre><code><br>解决办法：</code></p>
+<p><pre><code><br>编辑zabbix-server配置文件<br>vim /etc/zabbix/zabbix_server.conf</code></pre></p>
+<h1 id="DBHost-localhost改成DBHost-127-0-0-1"><a href="#DBHost-localhost改成DBHost-127-0-0-1" class="headerlink" title="DBHost=localhost改成DBHost=127.0.0.1"></a>DBHost=localhost改成DBHost=127.0.0.1</h1><p><code><br>重启zabbix-server</code></p>
+<p><pre><code><br>systemctl restart zabbix-server<br>再次通过netstat -lntp可查看到10051端口已启动<br>问题解决</code></pre><code> </code></p>
 
-limit_conn  TotalConnLimitZone  50;
-
-limit_conn_log_level notice;
-</code></pre><code>
-用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址每秒处理 10 个请求
-
-你想用程序每秒几百次的刷我，没戏，再快了就不处理了，直接返回 503 错误给你
-<pre><code>
-limit_req_zone $binary_remote_addr zone=ConnLimitZone:10m  rate=10r/s;
-
-limit_req_log_level notice;
-</code></pre><code>
-##具体服务器配置
-<pre><code>
-server {
-
-listen   80;
-
-location ~ \.php$ {
-
-最多 5 个排队， 由于每秒处理 10 个请求 + 5个排队，你一秒最多发送 15 个请求过来，再多就直接返回 503 错误给你了
-
-limit_req zone=ConnLimitZone burst=5 nodelay;
-
-fastcgi_pass   127.0.0.1:9000;
-
-fastcgi_index  index.php;
-
-include fastcgi_params;
-
-}
-
-}
-</code></pre><code>
-用户浏览器 → CDN节点 → 网站源服务器
-甚至是更复杂的模式：
-用户浏览器 → CDN节点（CDN入口、CC\DDoS攻击流量清洗等） → 阿里云盾 → 源服务器
-
-这里取得原始用户的IP地址
-<pre><code>
-map $http_x_forwarded_for  $clientRealIp {
-    ""    $remote_addr;
-    ~^(?P<firstaddr>[0-9\.]+),?.*$    $firstAddr;
-}
-</firstaddr></code></pre><code> 
-针对原始用户 IP 地址做限制
-<pre><code>
-limit_conn_zone $clientRealIp zone=TotalConnLimitZone:20m ;
-limit_conn  TotalConnLimitZone  50;
-limit_conn_log_level notice;
-
-针对原始用户 IP 地址做限制
-limit_req_zone $clientRealIp zone=ConnLimitZone:20m  rate=10r/s;
-#limit_req zone=ConnLimitZone burst=10 nodelay; #如果开启此条规则，burst=10的限制将会在nginx全局生效
-limit_req_log_level notice;
-</code></pre><code>
-具体Server：如下在监听php部分新增限制规则即可
-<pre><code>
-server {
-    listen   80;
-    location ~ \.php$ {
-                ## 最多 5 个排队， 由于每秒处理 10 个请求 + 5个排队，你一秒最多发送 15 个请求过来，再多就直接返回 503 错误给你了
-        limit_req zone=ConnLimitZone burst=5 nodelay;
-
-        fastcgi_pass   127.0.0.1:9000;
-        fastcgi_index  index.php;
-        include    fastcgi_params;
-    }    
-
-} </code></pre></code></code></code></code></code>
       
     </div>
     
@@ -483,12 +388,6 @@ server {
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/nginx/" rel="tag"># nginx</a>
-          
-        </div>
-      
 
       
       
@@ -498,8 +397,8 @@ server {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/18/centos-1/" rel="next" title="Centos7.4 修改MySQL5.7 root 密码">
-                <i class="fa fa-chevron-left"></i> Centos7.4 修改MySQL5.7 root 密码
+              <a href="/2019/01/02/centos7环境编译安装zabbix4-0server/" rel="next" title="centos7环境编译安装zabbix4.0server">
+                <i class="fa fa-chevron-left"></i> centos7环境编译安装zabbix4.0server
               </a>
             
           </div>
@@ -507,10 +406,6 @@ server {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/20/rocketmq-console编译安装/" rel="prev" title="rocketmq-console编译安装">
-                rocketmq-console编译安装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -562,8 +457,17 @@ server {
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -623,6 +527,22 @@ server {
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DBHost-localhost改成DBHost-127-0-0-1"><span class="nav-number">1.</span> <span class="nav-text">DBHost=localhost改成DBHost=127.0.0.1</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

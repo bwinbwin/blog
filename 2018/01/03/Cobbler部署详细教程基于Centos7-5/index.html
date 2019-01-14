@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Centos7.6编译安装php5.6 当前系统环境Centos7.2，php版本5.6.39">
+<meta name="description" content="当前环境介绍：当前系统Centos7.5，关闭selinux，关闭firewalld（或自行设置相应规则），关闭当前路由dhcp功能，如果是虚拟机安装则网络适配器要选择NAT模式（因为同一局域网多个DHCP服务会有冲突），本机IP地址192.168.56.11">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Centos7.6编译安装php5.6">
-<meta property="og:url" content="http://yunwei.github.io/2019/01/08/Centos7-6编译安装php5-6/index.html">
+<meta property="og:title" content="Cobbler部署详细教程基于Centos7.5">
+<meta property="og:url" content="http://yunwei.github.io/2018/01/03/Cobbler部署详细教程基于Centos7-5/index.html">
 <meta property="og:site_name" content="yunwei&#39;s blog">
-<meta property="og:description" content="Centos7.6编译安装php5.6 当前系统环境Centos7.2，php版本5.6.39">
+<meta property="og:description" content="当前环境介绍：当前系统Centos7.5，关闭selinux，关闭firewalld（或自行设置相应规则），关闭当前路由dhcp功能，如果是虚拟机安装则网络适配器要选择NAT模式（因为同一局域网多个DHCP服务会有冲突），本机IP地址192.168.56.11">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-08T01:55:46.938Z">
+<meta property="og:updated_time" content="2019-01-08T02:05:45.474Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Centos7.6编译安装php5.6">
-<meta name="twitter:description" content="Centos7.6编译安装php5.6 当前系统环境Centos7.2，php版本5.6.39">
+<meta name="twitter:title" content="Cobbler部署详细教程基于Centos7.5">
+<meta name="twitter:description" content="当前环境介绍：当前系统Centos7.5，关闭selinux，关闭firewalld（或自行设置相应规则），关闭当前路由dhcp功能，如果是虚拟机安装则网络适配器要选择NAT模式（因为同一局域网多个DHCP服务会有冲突），本机IP地址192.168.56.11">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yunwei.github.io/2019/01/08/Centos7-6编译安装php5-6/">
+  <link rel="canonical" href="http://yunwei.github.io/2018/01/03/Cobbler部署详细教程基于Centos7-5/">
 
 
 
 
 
-  <title>Centos7.6编译安装php5.6 | yunwei's blog</title>
+  <title>Cobbler部署详细教程基于Centos7.5 | yunwei's blog</title>
   
 
 
@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yunwei.github.io/2019/01/08/Centos7-6编译安装php5-6/">
+    <link itemprop="mainEntityOfPage" href="http://yunwei.github.io/2018/01/03/Cobbler部署详细教程基于Centos7-5/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="文章">
@@ -311,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Centos7.6编译安装php5.6</h1>
+          <h1 class="post-title" itemprop="name headline">Cobbler部署详细教程基于Centos7.5</h1>
         
 
         <div class="post-meta">
@@ -323,8 +323,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T09:50:30+08:00">
-                2019-01-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-03T11:02:00+08:00">
+                2018-01-03
               </time>
             
 
@@ -361,20 +361,21 @@
       
 
       
-        <p>Centos7.6编译安装php5.6</p>
-<p>当前系统环境Centos7.2，php版本5.6.39<br><a id="more"></a><br>1、安装epel源，安装所需依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install epel-release</span><br><span class="line">yum install gcc gcc-c++ libxml2-devel libxml2 openssl openssl-devel curl curl-devel libjpeg-devel libpng-devel freetype-devel icu libicu libicu-devel libmcrypt libmcrypt-devel libxslt libxslt-devel</span><br></pre></td></tr></table></figure></p>
-<p>2、下载php5.6<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/src</span><br><span class="line">wget http://cn2.php.net/distributions/php-5.6.39.tar.gz</span><br></pre></td></tr></table></figure></p>
-<p>3、解压编译安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">useradd -s /bin/false -M www</span><br><span class="line">tar xf php-5.6.39.tar.gz</span><br><span class="line">cd php-5.6.39</span><br><span class="line">./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-config-file-scan-dir=/usr/local/php/conf.d --enable-fpm --with-fpm-user=www --with-fpm-group=www --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-iconv-dir --with-freetype-dir=/usr/local/freetype --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --enable-mbregex --enable-mbstring --with-mcrypt --enable-ftp --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --with-gettext --disable-fileinfo --enable-opcache --enable-intl --with-xsl</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
-<p>4、配置php.ini和php-fpm.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp php.ini-production /usr/local/php/etc/php.ini</span><br><span class="line">cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf</span><br></pre></td></tr></table></figure></p>
-<p>编辑php.ini设置以下参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/php/etc/php.ini</span><br><span class="line">cgi.fix_pathinfo=0</span><br><span class="line">date.timezone = PRC</span><br><span class="line">short_open_tag = On</span><br></pre></td></tr></table></figure></p>
-<p>编辑php-fpm.conf设置以下参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/php/etc/php-fpm.conf	</span><br><span class="line">listen.owner = www</span><br><span class="line">listen.group = www</span><br><span class="line">listen = /var/run/php-fpm/php-fpm.sock</span><br></pre></td></tr></table></figure></p>
-<p>创建socket目录<br>mkdir /var/run/php-fpm/<br>注意：php.ini和php-fpm根据使用情况自行调整，这里只是一个简单的示例</p>
-<p>5、配置php-fpm服务并设置开机启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm</span><br><span class="line">chmod +x /etc/init.d/php-fpm</span><br><span class="line">chkconfig --add php-fpm</span><br><span class="line">chkconfig php-fpm on</span><br></pre></td></tr></table></figure></p>
-<p>6、配置环境变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;export PATH=$PATH:/usr/local/php/bin&apos; &gt;&gt; /etc/profile</span><br><span class="line">echo &apos;export PATH=$PATH:/usr/local/php/bin&apos; &gt;&gt; ~/.bashrc</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></p>
-<p>7、启动php服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/php-fpm start</span><br></pre></td></tr></table></figure></p>
-<p>8、在nginx上配置php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location ~ [^/]\.php(/|$) &#123;</span><br><span class="line">    try_files $uri =404;</span><br><span class="line">    include fastcgi.conf;</span><br><span class="line">    fastcgi_index index.php;</span><br><span class="line">    fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>9、验证</p>
-<p>最后写个phpinfo到web下，验证php是否正常即可</p>
+        <p>当前环境介绍：<br>当前系统Centos7.5，关闭selinux，关闭firewalld（或自行设置相应规则），关闭当前路由dhcp功能，如果是虚拟机安装则网络适配器要选择NAT模式（因为同一局域网多个DHCP服务会有冲突），本机IP地址192.168.56.11<br><a id="more"></a><br>前提：cobbler由epel源提供，所以需要事先配置epel的yum源。</p>
+<p><pre><code><br>一、安装epel源<br>wget -O /etc/yum.repos.d/epel.repo <a href="http://mirrors.aliyun.com/repo/epel-7.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/epel-7.repo</a><br>这里使用的是阿里的epel源，也可以直接yum install epel-release<br></code></pre><code> </code></p>
+<p><pre><code><br>二、安装cobbler<br>yum install cobbler cobbler-web pykickstart debmirror httpd dhcp tftp-server xinetd syslinux -y<br></code></pre><code> </code></p>
+<p><pre><code><br>三、启动相关服务并设置开机自启<br>systemctl start httpd<br>systemctl enable httpd<br>systemctl start cobblerd<br>systemctl enable cobblerd<br>systemctl start rsyncd<br>systemctl enable rsyncd<br>systemctl enable dhcpd<br></code></pre><code> </code></p>
+<p><pre><code><br>四、检查cobbler配置<br>通过cobbler自带的命令检查，而后逐一按提示解决。<br>cobbler check<br>正常会看到如下内容：<br></code></pre><code> </code></p>
+<p><pre><code><br>The following are potential configuration items that you may want to fix:<br>1 : The ‘server’ field in /etc/cobbler/settings must be set to something other than localhost, or kickstarting features will not work. This should be a resolvable hostname or IP for the boot server as reachable by all machines that will use it.<br>2 : For PXE to be functional, the ‘next_server’ field in /etc/cobbler/settings must be set to something other than 127.0.0.1, and should match the IP of the boot server on the PXE network.<br>3 : change ‘disable’ to ‘no’ in /etc/xinetd.d/tftp<br>4 : Some network boot-loaders are missing from /var/lib/cobbler/loaders, you may run ‘cobbler get-loaders’ to download them, or, if you only want to handle x86/x86_64 netbooting, you may ensure that you have installed a <em>recent</em> version of the syslinux package installed and can ignore this message entirely. Files in this directory, should you want to support all architectures, should include pxelinux.0, menu.c32, elilo.efi, and yaboot. The ‘cobbler get-loaders’ command is the easiest way to resolve these requirements.<br>5 : comment out ‘dists’ on /etc/debmirror.conf for proper debian support<br>6 : comment out ‘arches’ on /etc/debmirror.conf for proper debian support<br>7 : The default password used by the sample templates for newly installed machines (default_password_crypted in /etc/cobbler/settings) is still set to ‘cobbler’ and should be changed, try: “openssl passwd -1 -salt ‘random-phrase-here’ ‘your-password-here’” to generate new one<br>8: fencing tools were not found, and are required to use the (optional) power management features. install cman or fence-agents to use them<br>Restart cobblerd and then run ‘cobbler sync’ to apply changes.<br>如上各问题的解决方法如下所示：<br>1、修改/etc/cobbler/settings文件，将默认server的127.0.0.1替换为本机IP地址<br>sed -i ‘s#^server: 127.0.0.1#server: 192.168.56.11#’ /etc/cobbler/settings<br>2、修改/etc/cobbler/settings文件，将默认next_server的127.0.0.1替换为本机IP地址<br>sed -i ‘s#^next_server: 127.0.0.1#next_server: 192.168.56.11#’ /etc/cobbler/settings<br>3、将/etc/xinetd.d/tftp中disable改为no<br>disable = no<br>4、执行“cobbler get-loaders”命令即可<br>cobbler get-loaders<br></code></pre><code> </code></p>
+<p><pre><code><br>task started: 2018-11-04_103455_get_loaders<br>task started (id=Download Bootloader Content, time=Sat Nov 4 10:34:55 2018)<br>downloading <a href="https://cobbler.github.io/loaders/README" target="_blank" rel="noopener">https://cobbler.github.io/loaders/README</a> to /var/lib/cobbler/loaders/README<br>downloading <a href="https://cobbler.github.io/loaders/COPYING.elilo" target="_blank" rel="noopener">https://cobbler.github.io/loaders/COPYING.elilo</a> to /var/lib/cobbler/loaders/COPYING.elilo<br>downloading <a href="https://cobbler.github.io/loaders/COPYING.yaboot" target="_blank" rel="noopener">https://cobbler.github.io/loaders/COPYING.yaboot</a> to /var/lib/cobbler/loaders/COPYING.yaboot<br>downloading <a href="https://cobbler.github.io/loaders/COPYING.syslinux" target="_blank" rel="noopener">https://cobbler.github.io/loaders/COPYING.syslinux</a> to /var/lib/cobbler/loaders/COPYING.syslinux<br>downloading <a href="https://cobbler.github.io/loaders/elilo-3.8-ia64.efi" target="_blank" rel="noopener">https://cobbler.github.io/loaders/elilo-3.8-ia64.efi</a> to /var/lib/cobbler/loaders/elilo-ia64.efi<br>downloading <a href="https://cobbler.github.io/loaders/yaboot-1.3.17" target="_blank" rel="noopener">https://cobbler.github.io/loaders/yaboot-1.3.17</a> to /var/lib/cobbler/loaders/yaboot<br>downloading <a href="https://cobbler.github.io/loaders/pxelinux.0-3.86" target="_blank" rel="noopener">https://cobbler.github.io/loaders/pxelinux.0-3.86</a> to /var/lib/cobbler/loaders/pxelinux.0<br>downloading <a href="https://cobbler.github.io/loaders/menu.c32-3.86" target="_blank" rel="noopener">https://cobbler.github.io/loaders/menu.c32-3.86</a> to /var/lib/cobbler/loaders/menu.c32<br>downloading <a href="https://cobbler.github.io/loaders/grub-0.97-x86.efi" target="_blank" rel="noopener">https://cobbler.github.io/loaders/grub-0.97-x86.efi</a> to /var/lib/cobbler/loaders/grub-x86.efi<br>downloading <a href="https://cobbler.github.io/loaders/grub-0.97-x86_64.efi" target="_blank" rel="noopener">https://cobbler.github.io/loaders/grub-0.97-x86_64.efi</a> to /var/lib/cobbler/loaders/grub-x86_64.efi<br><strong><em> TASK COMPLETE </em></strong><br></code></pre><code> </code></p>
+<p><pre><code><br>5、注释/etc/debmirror.conf文件中的@dists=”sid”;一行<br>sed -i ‘s/@dists=”sid”;/#@dists=”sid”;/‘ /etc/debmirror.conf<br>6、注释/etc/debmirror.conf文件中的@arches=”i386”;一行<br>sed -i ‘s/@arches=”i386”;/#@arches=”i386”;/‘ /etc/debmirror.conf<br>7、设置新系统默认的root密码，执行“openssl passwd -1 -salt $(openssl rand -hex 4)”生成密码，并用其替换/etc/cobbler/settings文件中default_password_crypted参数的值；<br>openssl passwd -1 -salt $(openssl rand -hex 4)<br>Password:root<br>$1$10af48f7$uvsEOjMiG.yVGKbv2GSud/<br>vi /etc/cobbler/settings<br>default_password_crypted: “$1$10af48f7$uvsEOjMiG.yVGKbv2GSud/“<br>8、安装相应的程序包<br>yum install fence-agents -y<br>五、重启cobblerd并同步检查<br>systemctl restart cobblerd<br>cobbler sync<br>cobbler check<br>显示No configuration problems found. All systems go.（没有找到配置问题，一切正常）<br>六、通过cobbler来管理dhcp<br>sed -i ‘s#manage_dhcp: 0#manage_dhcp: 1#’ /etc/cobbler/settings<br></code></pre><code></code></p>
+<p><pre><code><br>七、配置dhcp服务<br>vi /etc/cobbler/dhcp.template<br>…<br>subnet 192.168.56.0 netmask 255.255.255.0 {<br>option routers             192.168.56.2;  #网关地址<br>option domain-name-servers 114.114.114.114; #DNS<br>option subnet-mask         255.255.255.0; #掩码<br>range dynamic-bootp        192.168.56.120 192.168.50.130; #网段<br>…<br></code></pre><code><br>重启cobbler服务并同步配置</code></p>
+<p><pre><code><br>systemctl restart cobblerd<br>cobbler sync<br></code></pre><code> </code></p>
+<p><pre><code><br>八、挂载导入镜像<br>我这里已经上传好了一个镜像在root目录下<br>mount -r CentOS-7-x86_64-Minimal-1804.iso /mnt/<br>导入镜像，cobbler会将镜像中所有安装文件拷贝到/var/www/cobbler/ks_mirror/NAME目录下，因此/var/www/cobbler目录必须具有足够的空间<br>cobbler import –path=/mnt/ –name=CentOS-7.5-x86_64 –arch=x86_64<br>导入镜像完成后，可用下面命令查看到刚才导入的镜像<br>cobbler distro list<br></code></pre><code> </code></p>
+<p><pre><code><br>九、编辑kickstart文件<br>我这里已经提前准备好了一份kickstart文件，文件内容如下<br>vi /var/lib/cobbler/kickstarts/CentOS-7.5-x86_64.cfg<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#This kickstart file should only be used with EL &gt; 5 and/or Fedora &gt; 7.</span><br><span class="line">#For older versions please use the sample.ks kickstart file.</span><br><span class="line">#platform=x86, AMD64, or Intel EM64T</span><br><span class="line">#System authorization information</span><br><span class="line">auth --useshadow --passalgo=sha512</span><br><span class="line">#System bootloader configuration</span><br><span class="line">bootloader --location=mbr</span><br><span class="line">#Partition clearing information</span><br><span class="line">clearpart --all --initlabel</span><br><span class="line">#Use text mode install</span><br><span class="line">text</span><br><span class="line">#Firewall configuration</span><br><span class="line">firewall --disable</span><br><span class="line">#Run the Setup Agent on first boot</span><br><span class="line">firstboot --disable</span><br><span class="line">ignoredisk --only-use=sda</span><br><span class="line">#System keyboard</span><br><span class="line">keyboard us</span><br><span class="line">#System language</span><br><span class="line">lang en_US</span><br><span class="line">#Use network installation</span><br><span class="line">url --url=$tree</span><br><span class="line">#If any cobbler repo definitions were referenced in the kickstart profile, include them here.</span><br><span class="line">$yum_repo_stanza</span><br><span class="line">#Network information</span><br><span class="line">$SNIPPET(&apos;network_config&apos;)</span><br><span class="line">#Reboot after installation</span><br><span class="line">reboot</span><br><span class="line">#Root password</span><br><span class="line">rootpw --iscrypted $default_password_crypted</span><br><span class="line">#SELinux configuration</span><br><span class="line">selinux --disabled</span><br><span class="line">#Do not configure the X Window System</span><br><span class="line">skipx</span><br><span class="line">#System timezone</span><br><span class="line">timezone Asia/Shanghai</span><br><span class="line">#Install OS instead of upgrade</span><br><span class="line">install</span><br><span class="line">#Clear the Master Boot Record</span><br><span class="line">zerombr</span><br><span class="line">#Allow anaconda to partition the system as needed</span><br><span class="line">part /boot --fstype=&quot;xfs&quot; --size=300 --ondisk=sda</span><br><span class="line">part swap --fstype=&quot;swap&quot; --size=2048 --ondisk=sda</span><br><span class="line">part / --fstype=&quot;xfs&quot; --grow --size=1 --ondisk=sda </span><br><span class="line">%pre </span><br><span class="line">$SNIPPET(&apos;log_ks_pre&apos;)</span><br><span class="line">$SNIPPET(&apos;kickstart_start&apos;)</span><br><span class="line">$SNIPPET(&apos;pre_install_network_config&apos;)</span><br><span class="line">#Enable installation monitoring</span><br><span class="line">$SNIPPET(&apos;pre_anamon&apos;)</span><br><span class="line">%end</span><br><span class="line">%packages</span><br><span class="line">@^minimal</span><br><span class="line">@core</span><br><span class="line">kexec-tools</span><br><span class="line">%end</span><br><span class="line">%post</span><br><span class="line">systemctl disable postfix.service</span><br><span class="line">%end</span><br></pre></td></tr></table></figure></code></pre></p>
+<p><code> </code></p>
+<p><pre><code><br>十、修改kickstart文件为自定义的CentOS-7.5-x86_64.cfg<br>cobbler profile edit –name=CentOS-7.5-x86_64 –kickstart=/var/lib/cobbler/kickstarts/CentOS-7.5-x86_64.cfg<br>用cobbler profile report查看，Kickstart已经改变<br></code></pre><code> </code></p>
+<p><pre><code><br>十一、重启xinetd服务<br>systemctl restart xinetd<br>至此为止配置完成，部分参数可根据情况自行进行修改<br>PS：<br>后续安装系统时如果提示TFTP timeout，请检查xinetd服务是否启动，netstat -lntpu是否可以看到69端口<br>如果出现/sbin/dmsquash-live-root: line 286: printf: write error: No space left on device因为内存不足2G的原因<br></code></pre><code></code></p>
 
       
     </div>
@@ -406,15 +407,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/03/Cobbler部署详细教程基于Centos7-5/" rel="next" title="Cobbler部署详细教程基于Centos7.5">
-                <i class="fa fa-chevron-left"></i> Cobbler部署详细教程基于Centos7.5
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/08/Centos7-6编译安装php5-6/" rel="prev" title="Centos7.6编译安装php5.6">
+                Centos7.6编译安装php5.6 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -482,7 +483,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

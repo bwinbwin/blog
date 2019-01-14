@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="yunwei&#39;s blog">
-<meta property="og:url" content="http://yunwei.github.io/archives/index.html">
+<meta name="description" content="ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，它是集群的管理者，监视着集群中各个节点的状态根据节点提交的反馈进行下一步合理操作。最终，将简单易用的接口和性能高效、功能稳定的系统提供给用户。集群模式有两种形式： 使用一台机器，在该台机器上运行多个ZooKeeper Server进程。 在生产环境中，一般使用第一种形式，在练习环境中，一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zookeeper集群安装">
+<meta property="og:url" content="http://yunwei.github.io/2019/01/14/Zookeeper集群安装/index.html">
 <meta property="og:site_name" content="yunwei&#39;s blog">
+<meta property="og:description" content="ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，它是集群的管理者，监视着集群中各个节点的状态根据节点提交的反馈进行下一步合理操作。最终，将简单易用的接口和性能高效、功能稳定的系统提供给用户。集群模式有两种形式： 使用一台机器，在该台机器上运行多个ZooKeeper Server进程。 在生产环境中，一般使用第一种形式，在练习环境中，一">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-14T03:02:38.176Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yunwei&#39;s blog">
+<meta name="twitter:title" content="Zookeeper集群安装">
+<meta name="twitter:description" content="ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，它是集群的管理者，监视着集群中各个节点的状态根据节点提交的反馈进行下一步合理操作。最终，将简单易用的接口和性能高效、功能稳定的系统提供给用户。集群模式有两种形式： 使用一台机器，在该台机器上运行多个ZooKeeper Server进程。 在生产环境中，一般使用第一种形式，在练习环境中，一">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yunwei.github.io/archives/">
+  <link rel="canonical" href="http://yunwei.github.io/2019/01/14/Zookeeper集群安装/">
 
 
 
 
 
-  <title>归档 | yunwei's blog</title>
+  <title>Zookeeper集群安装 | yunwei's blog</title>
   
 
 
@@ -140,7 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -276,396 +280,158 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yunwei.github.io/2019/01/14/Zookeeper集群安装/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="文章">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yunwei's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Zookeeper集群安装</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T10:46:20+08:00">
+                2019-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 12 篇日志。 继续努力。
-      </span>
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/14/Zookeeper集群安装/" itemprop="url">
-              
-                <span itemprop="name">Zookeeper集群安装</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-14T10:46:20+08:00" content="2019-01-14">
-          01-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/02/zabbix-server报错zabbix-server-is-not-running/" itemprop="url">
-              
-                <span itemprop="name">zabbix-server报错zabbix server is not running</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-02T14:27:26+08:00" content="2019-01-02">
-          01-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/02/centos7环境编译安装zabbix4-0server/" itemprop="url">
-              
-                <span itemprop="name">centos7环境编译安装zabbix4.0server</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-02T13:29:51+08:00" content="2019-01-02">
-          01-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
+            
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/27/Tomcat-Nginx反向代理获取客户端真实IP、域名、协议、端口/" itemprop="url">
-              
-                <span itemprop="name">Tomcat + Nginx反向代理获取客户端真实IP、域名、协议、端口</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-27T10:45:51+08:00" content="2018-12-27">
-          12-27
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/27/tomcat查看GC信息/" itemprop="url">
-              
-                <span itemprop="name">tomcat查看GC信息</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-27T09:57:04+08:00" content="2018-12-27">
-          12-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/21/apache-rocketmq集群搭建/" itemprop="url">
-              
-                <span itemprop="name">apache-rocketmq集群搭建</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-21T15:02:29+08:00" content="2018-12-21">
-          12-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p><pre><code><br>ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，它是集群的管理者，监视着集群中各个节点的状态根据节点提交的反馈进行下一步合理操作。最终，将简单易用的接口和性能高效、功能稳定的系统提供给用户。<br>集群模式有两种形式：<br> 使用一台机器，在该台机器上运行多个ZooKeeper Server进程。<br> 在生产环境中，一般使用第一种形式，在练习环境中，一般使用第二种形式。<br></code></pre><code><br><a id="more"></a></code></p>
+<p>1.依赖环境：</p>
+<p><pre><code><br>    Linux：Centos 7.5.1804<br>    Java：JDK 1.8.0_65<br>    Zookeeper：3.4.12<br></code></pre><code> </code></p>
+<p>2.安装java环境，下载jdk1.8.0_65包解压到/apps目录下</p>
+<p><pre><code><br>vi /etc/profile<br>export JAVA_HOME=/apps/jdk1.8.0_65<br>export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH<br>export CLASSPATH=.$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib:$JAVA_HOME/lib/tools.jar<br>source /etc/profile<br></code></pre><code> </code></p>
+<p>3.本机安装多个zookeeper实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cd /software/</span><br><span class="line">[root@localhost software]# tar zxf /root/zookeeper-3.4.12.tar.gz</span><br><span class="line">[root@localhost software]# mv zookeeper-3.4.12/ zookeeper1</span><br><span class="line">[root@localhost software]# tar zxf /root/zookeeper-3.4.12.tar.gz</span><br><span class="line">[root@localhost software]# mv zookeeper-3.4.12/ zookeeper2</span><br><span class="line">[root@localhost software]# tar zxf /root/zookeeper-3.4.12.tar.gz</span><br><span class="line">[root@localhost software]# mv zookeeper-3.4.12/ zookeeper3</span><br><span class="line">[root@localhost software]# ll</span><br><span class="line">total 12</span><br><span class="line">drwxr-xr-x 10 centos centos 4096 Mar 27 12:36 zookeeper1</span><br><span class="line">drwxr-xr-x 10 centos centos 4096 Mar 27 12:36 zookeeper2</span><br><span class="line">drwxr-xr-x 10 centos centos 4096 Mar 27 12:36 zookeeper3</span><br></pre></td></tr></table></figure></p>
+<p>4.修改三个zookeeper的配置文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">Server1:</span><br><span class="line">[root@localhost software]# cp zookeeper1/conf/zoo_sample.cfg zookeeper1/conf/zoo.cfg</span><br><span class="line">[root@localhost software]# vim zookeeper1/conf/zoo.cfg</span><br><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/software/data/zookeeper1</span><br><span class="line">dataLogDir=/software/logs/zookeeper1</span><br><span class="line">clientPort=2181</span><br><span class="line">server.1=127.0.0.1:2200:2201</span><br><span class="line">server.2=127.0.0.1:2210:2211</span><br><span class="line">server.3=127.0.0.1:2220:2221</span><br><span class="line"></span><br><span class="line">Server2：</span><br><span class="line">[root@localhost software]# cp zookeeper2/conf/zoo_sample.cfg zookeeper1/conf/zoo.cfg</span><br><span class="line">[root@localhost software]# vim zookeeper2/conf/zoo.cfg</span><br><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/software/data/zookeeper2</span><br><span class="line">dataLogDir=/software/logs/zookeeper2</span><br><span class="line">clientPort=2182</span><br><span class="line">server.1=127.0.0.1:2200:2201</span><br><span class="line">server.2=127.0.0.1:2210:2211</span><br><span class="line">server.3=127.0.0.1:2220:2221</span><br><span class="line"></span><br><span class="line">Server3：</span><br><span class="line">[root@localhost software]# cp zookeeper3/conf/zoo_sample.cfg zookeeper1/conf/zoo.cfg</span><br><span class="line">[root@localhost software]# vim zookeeper3/conf/zoo.cfg</span><br><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/software/data/zookeeper3</span><br><span class="line">dataLogDir=/software/logs/zookeeper3</span><br><span class="line">clientPort=2183</span><br><span class="line">server.1=127.0.0.1:2200:2201</span><br><span class="line">server.2=127.0.0.1:2210:2211</span><br><span class="line">server.3=127.0.0.1:2220:2221</span><br></pre></td></tr></table></figure></p>
+<p>4.添加myid文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data目录下添加myid文件,用于存储一个数值，用来作为该ZooKeeper Server进程的标识。即上面配置中的NUM。</span><br><span class="line">[root@localhost software]# cat data/zookeeper1/myid </span><br><span class="line">1</span><br><span class="line">[root@localhost software]# cat data/zookeeper2/myid </span><br><span class="line">2</span><br><span class="line">[root@localhost software]# cat data/zookeeper3/myid </span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
+<p>5.启动zookeeper集群：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost software]# zookeeper1/bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /software/zookeeper1/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br><span class="line">[root@localhost software]# zookeeper2/bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /software/zookeeper2/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br><span class="line">[root@localhost software]# zookeeper3/bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /software/zookeeper3/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br><span class="line">[root@localhost software]# ss -tnl</span><br><span class="line">State      Recv-Q Send-Q  Local Address:Port                 Peer Address:Port</span><br><span class="line">LISTEN     0      50          127.0.0.1:2210                            *:*</span><br><span class="line">LISTEN     0      50                  *:33730                           *:*</span><br><span class="line">LISTEN     0      50          127.0.0.1:2211                            *:*</span><br><span class="line">LISTEN     0      50                  *:2181                            *:*</span><br><span class="line">LISTEN     0      50                  *:2182                            *:*</span><br><span class="line">LISTEN     0      50                  *:2183                            *:*</span><br><span class="line">LISTEN     0      50          127.0.0.1:2221                            *:*</span><br><span class="line">LISTEN     0      50                  *:45907                           *:*</span><br><span class="line">LISTEN     0      50                  *:45108                           *:*</span><br><span class="line">LISTEN     0      128                 *:22                              *:*</span><br><span class="line">LISTEN     0      50          127.0.0.1:2201                            *:*</span><br></pre></td></tr></table></figure></p>
+<p>6.查看zookeeper集群的状态：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost software]# zookeeper1/bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /software/zookeeper1/bin/../conf/zoo.cfg</span><br><span class="line">Mode: follower</span><br><span class="line">[root@localhost software]# zookeeper2/bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /software/zookeeper2/bin/../conf/zoo.cfg</span><br><span class="line">Mode: leader</span><br><span class="line">[root@localhost software]# zookeeper3/bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /software/zookeeper3/bin/../conf/zoo.cfg</span><br><span class="line">Mode: follower</span><br></pre></td></tr></table></figure></p>
+<p>7.故障转移<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">假设zookeeper2节点(leader)故障，查看Leader是否会转移：</span><br><span class="line">(1)停止zookeeper2节点：</span><br><span class="line">    [root@localhost software]# zookeeper2/bin/zkServer.sh stop</span><br><span class="line">    ZooKeeper JMX enabled by default</span><br><span class="line">    Using config: /software/zookeeper2/bin/../conf/zoo.cfg</span><br><span class="line">    Stopping zookeeper ... STOPPED</span><br><span class="line">    [root@localhost software]# zookeeper2/bin/zkServer.sh status</span><br><span class="line">    ZooKeeper JMX enabled by default</span><br><span class="line">    Using config: /software/zookeeper2/bin/../conf/zoo.cfg</span><br><span class="line">    Error contacting service. It is probably not running.</span><br><span class="line">(2)查看其它zookeeper节点的状态，发现Leader已经转移到zookeeper3节点</span><br><span class="line">    [root@localhost software]# zookeeper1/bin/zkServer.sh status</span><br><span class="line">    ZooKeeper JMX enabled by default</span><br><span class="line">    Using config: /software/zookeeper1/bin/../conf/zoo.cfg</span><br><span class="line">    Mode: follower</span><br><span class="line">    [root@localhost software]# zookeeper3/bin/zkServer.sh status</span><br><span class="line">    ZooKeeper JMX enabled by default</span><br><span class="line">    Using config: /software/zookeeper3/bin/../conf/zoo.cfg</span><br><span class="line">    Mode: leader</span><br><span class="line">(3)使zookeeper2节点手动上线：</span><br><span class="line">    [root@localhost software]# zookeeper2/bin/zkServer.sh start</span><br><span class="line">    ZooKeeper JMX enabled by default</span><br><span class="line">    Using config: /software/zookeeper2/bin/../conf/zoo.cfg</span><br><span class="line">    Starting zookeeper ... STARTED</span><br><span class="line">    [root@localhost software]# zookeeper2/bin/zkServer.sh status</span><br><span class="line">    ZooKeeper JMX enabled by default</span><br><span class="line">    Using config: /software/zookeeper2/bin/../conf/zoo.cfg</span><br><span class="line">    Mode: follower</span><br></pre></td></tr></table></figure></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/20/rocketmq-console编译安装/" itemprop="url">
-              
-                <span itemprop="name">rocketmq-console编译安装</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-20T15:24:18+08:00" content="2018-12-20">
-          12-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/19/nginx/" itemprop="url">
-              
-                <span itemprop="name">Nginx在CDN加速之后，获取用户真实IP做并发访问限制的方法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-19T21:41:12+08:00" content="2018-12-19">
-          12-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/18/centos-1/" itemprop="url">
-              
-                <span itemprop="name">Centos7.4 修改MySQL5.7 root 密码</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-18T15:59:00+08:00" content="2018-12-18">
-          12-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/18/KVM部署篇/" itemprop="url">
-              
-                <span itemprop="name">KVM部署篇</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-18T11:28:47+08:00" content="2018-12-18">
-          12-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    <div>
+  
+    <div>  <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>  </div>
+
+  
+   </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/02/zabbix-server报错zabbix-server-is-not-running/" rel="next" title="zabbix-server报错zabbix server is not running">
+                <i class="fa fa-chevron-left"></i> zabbix-server报错zabbix server is not running
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -673,6 +439,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -892,6 +662,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
